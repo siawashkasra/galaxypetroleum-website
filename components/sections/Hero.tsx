@@ -1,173 +1,196 @@
 'use client'
 
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
+import RouteVisualization from '@/components/ui/RouteVisualization'
 
-const HERO_IMAGE =
-  'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1920&q=80'
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-const EASE_OUT_EXPO: [number, number, number, number] = [0.16, 1, 0.3, 1]
+const CONTENT_VARIANTS = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.14, delayChildren: 0.2 },
+  },
+}
 
-const HEADLINE = ['Fueling', "Afghanistan's", 'Future']
+const ITEM_VARIANTS = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: EASE },
+  },
+}
 
-function buildVariants(prefersReducedMotion: boolean | null) {
-  if (prefersReducedMotion) {
-    return {
-      container: { hidden: {}, visible: {} },
-      item: { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.01 } } },
-    }
-  }
-
-  return {
-    container: {
-      hidden: {},
-      visible: {
-        transition: { staggerChildren: 0.12, delayChildren: 0.3 },
-      },
-    },
-    item: {
-      hidden: { opacity: 0, y: 28 },
-      visible: {
-        opacity: 1,
-        y: 0,
-        transition: { duration: 0.9, ease: EASE_OUT_EXPO },
-      },
-    },
-  }
+const REDUCED_ITEM_VARIANTS = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: 0.15 } },
 }
 
 export default function Hero() {
   const prefersReducedMotion = useReducedMotion()
-  const variants = buildVariants(prefersReducedMotion)
+  const itemVariants = prefersReducedMotion ? REDUCED_ITEM_VARIANTS : ITEM_VARIANTS
 
   return (
     <section
       id="hero"
       aria-label="Hero"
-      className="relative flex min-h-dvh flex-col overflow-hidden bg-ink"
+      className="relative flex min-h-dvh flex-col overflow-hidden"
+      style={{ background: 'linear-gradient(135deg, #0C0C0A 0%, #111108 50%, #0C0C0A 100%)' }}
     >
-      {/* Background image with Ken Burns zoom */}
-      <motion.div
-        className="absolute inset-0"
-        initial={prefersReducedMotion ? false : { scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 10, ease: 'easeOut' }}
-      >
-        <Image
-          src={HERO_IMAGE}
-          alt="Galaxy Petroleum — industrial energy infrastructure"
-          fill
-          priority
-          quality={90}
-          sizes="100vw"
-          className="object-cover object-center"
-        />
-      </motion.div>
-
-      {/* Layered gradient overlay — preserves image at top, darkens for text legibility */}
+      {/* Subtle dot-grid texture */}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-gradient-to-b from-ink/35 via-ink/55 to-ink/85"
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, #C9A84C 1px, transparent 1px)',
+          backgroundSize: '40px 40px',
+        }}
       />
 
-      {/* Gold accent line — left edge of content */}
+      {/* Horizontal gold rule — top accent */}
       <motion.div
         aria-hidden="true"
-        className="absolute left-6 top-1/2 hidden h-40 w-px -translate-y-1/2 bg-gold lg:left-10 lg:block"
-        initial={prefersReducedMotion ? false : { scaleY: 0, opacity: 0 }}
-        animate={{ scaleY: 1, opacity: 1 }}
-        transition={{ duration: 1.2, delay: 0.8, ease: EASE_OUT_EXPO }}
-        style={{ transformOrigin: 'top' }}
+        className="absolute left-0 right-0 top-0 h-px bg-gold opacity-30"
+        initial={{ scaleX: 0 }}
+        animate={{ scaleX: 1 }}
+        transition={{ duration: 1.4, delay: 0.3, ease: EASE }}
+        style={{ transformOrigin: 'left' }}
       />
 
-      {/* Main content */}
-      <motion.div
-        className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col justify-center px-6 pb-28 pt-36 lg:px-10 lg:pl-20"
-        variants={variants.container}
-        initial="hidden"
-        animate="visible"
-      >
-        {/* Eyebrow label */}
-        <motion.p
-          className="mb-6 text-[11px] font-semibold tracking-[0.35em] text-gold uppercase"
-          variants={variants.item}
-        >
-          Afghanistan&rsquo;s Premier Petroleum Partner
-        </motion.p>
+      {/* Main layout */}
+      <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-1 flex-col px-6 lg:flex-row lg:items-center lg:px-10">
 
-        {/* Headline — each line animates individually */}
-        <h1 className="font-display leading-[0.92] tracking-wide text-white" aria-label="Fueling Afghanistan's Future">
-          {HEADLINE.map((line, i) => (
-            <motion.span
-              key={line}
-              className="block"
-              style={{
-                fontFamily: 'var(--font-bebas-neue)',
-                fontSize: 'clamp(3.5rem, 11vw, 9.5rem)',
-                color: i === 1 ? 'var(--color-gold)' : 'white',
-              }}
-              variants={variants.item}
-            >
-              {line}
-            </motion.span>
-          ))}
-        </h1>
-
-        {/* Subheadline */}
-        <motion.p
-          className="mt-8 max-w-lg text-[15px] leading-relaxed text-white/65 lg:text-base"
-          variants={variants.item}
-        >
-          Sourced from six nations across Central Asia and the Middle East. Delivered
-          reliably across Afghanistan. World-class petroleum products through a supply
-          chain built for scale and consistency.
-        </motion.p>
-
-        {/* CTAs */}
+        {/* ── Left: Text content ───────────────────────────────────── */}
         <motion.div
-          className="mt-10 flex flex-wrap items-center gap-4"
-          variants={variants.item}
+          className="flex flex-col justify-center pb-10 pt-32 lg:w-[52%] lg:py-28 lg:pr-8"
+          variants={CONTENT_VARIANTS}
+          initial="hidden"
+          animate="visible"
         >
-          <Link
-            href="#products"
-            className="inline-flex items-center bg-gold px-8 py-3.5 text-[11px] font-semibold tracking-[0.2em] uppercase text-white transition-colors duration-300 hover:bg-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+          {/* Eyebrow */}
+          <motion.p
+            className="mb-6 text-[10px] font-semibold uppercase tracking-[0.4em] text-gold"
+            variants={itemVariants}
           >
-            Explore Products
-          </Link>
-          <Link
-            href="#journey"
-            className="inline-flex items-center gap-2.5 border border-white/35 px-8 py-3.5 text-[11px] font-semibold tracking-[0.2em] uppercase text-white/90 transition-all duration-300 hover:border-white/70 hover:bg-white/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            Afghanistan&rsquo;s Premier Petroleum Partner
+          </motion.p>
+
+          {/* Headline */}
+          <motion.h1
+            aria-label="Energy Without Borders"
+            className="leading-[0.9] tracking-wide text-white"
+            style={{
+              fontFamily: 'var(--font-bebas-neue)',
+              fontSize: 'clamp(3.8rem, 10vw, 9rem)',
+            }}
+            variants={itemVariants}
           >
-            The Journey
-            <span aria-hidden="true">→</span>
-          </Link>
+            Energy
+            <br />
+            <span style={{ color: 'var(--color-gold)' }}>Without</span>
+            <br />
+            Borders
+          </motion.h1>
+
+          {/* Divider */}
+          <motion.div
+            aria-hidden="true"
+            className="my-8 h-px w-16 bg-gold opacity-50"
+            variants={itemVariants}
+          />
+
+          {/* Subheadline */}
+          <motion.p
+            className="max-w-sm text-[14px] leading-7 text-white/60"
+            variants={itemVariants}
+          >
+            Six source nations. Four border crossings. One reliable partner.
+            Galaxy Petroleum delivers world-class fuel across Afghanistan —
+            tracing a supply chain no competitor has built.
+          </motion.p>
+
+          {/* CTAs */}
+          <motion.div
+            className="mt-10 flex flex-wrap items-center gap-4"
+            variants={itemVariants}
+          >
+            <Link
+              href="#products"
+              className="inline-flex items-center bg-gold px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            >
+              Our Products
+            </Link>
+            <Link
+              href="#journey"
+              className="inline-flex items-center gap-2.5 border border-white/25 px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white/80 transition-all duration-300 hover:border-gold/60 hover:text-gold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
+            >
+              Trace the Journey
+              <span aria-hidden="true">→</span>
+            </Link>
+          </motion.div>
+
+          {/* Trust metadata */}
+          <motion.ul
+            aria-label="Company facts"
+            className="mt-12 flex flex-wrap gap-x-6 gap-y-2"
+            variants={itemVariants}
+          >
+            {[
+              'Est. 2023',
+              'Kabul, Afghanistan',
+              '6 Source Nations',
+              '100+ Team Members',
+            ].map(fact => (
+              <li key={fact} className="text-[10px] uppercase tracking-[0.2em] text-white/30">
+                {fact}
+              </li>
+            ))}
+          </motion.ul>
         </motion.div>
 
-        {/* Trust line */}
-        <motion.p
-          className="mt-10 text-[11px] tracking-widest text-white/35 uppercase"
-          variants={variants.item}
+        {/* ── Right: Route Visualization ───────────────────────────── */}
+        <motion.div
+          className="flex items-center justify-center pb-8 lg:w-[48%] lg:py-28"
+          initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 40 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+          aria-hidden="true"
         >
-          Established 2023 &nbsp;·&nbsp; Kabul, Afghanistan &nbsp;·&nbsp; 6 Source Nations
-        </motion.p>
-      </motion.div>
+          {/* Outer glow container */}
+          <div className="relative w-full max-w-[520px]">
+            {/* Background card */}
+            <div
+              className="absolute inset-0 rounded-sm opacity-40"
+              style={{
+                background:
+                  'radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%)',
+              }}
+            />
+            {/* Label */}
+            <p className="mb-3 text-center text-[9px] uppercase tracking-[0.35em] text-gold/50">
+              Live Supply Route
+            </p>
+            <RouteVisualization />
+          </div>
+        </motion.div>
+      </div>
 
       {/* Scroll indicator */}
       <motion.div
         role="presentation"
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-white/40"
+        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2 text-white/30"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: prefersReducedMotion ? 0 : 1.6, duration: 0.8 }}
+        transition={{ delay: prefersReducedMotion ? 0 : 2.2, duration: 0.8 }}
       >
-        <span className="text-[9px] font-medium tracking-[0.4em] uppercase">Scroll</span>
+        <span className="text-[8px] font-medium uppercase tracking-[0.4em]">Scroll</span>
         <motion.div
-          animate={prefersReducedMotion ? {} : { y: [0, 7, 0] }}
+          animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
           transition={{ repeat: Infinity, duration: 2, ease: 'easeInOut' }}
         >
-          <ArrowDown size={14} strokeWidth={1.5} />
+          <ArrowDown size={13} strokeWidth={1.5} />
         </motion.div>
       </motion.div>
     </section>
