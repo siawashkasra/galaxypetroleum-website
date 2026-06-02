@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { company } from '@/lib/data'
@@ -61,19 +62,20 @@ export default function Navbar() {
           <Link
             href="/"
             onClick={closeMenu}
-            className="flex flex-col leading-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
             aria-label="Galaxy Petroleum — Home"
           >
-            <span
-              className={`font-display text-2xl tracking-[0.15em] transition-colors duration-500 ${
-                isLight ? 'text-ink' : 'text-white'
-              }`}
-            >
-              GALAXY
-            </span>
-            <span className="font-display text-[9px] tracking-[0.45em] text-gold">
-              PETROLEUM
-            </span>
+            <Image
+              src="/logo.png"
+              alt="Galaxy Petroleum"
+              width={130}
+              height={46}
+              priority
+              className="h-10 w-auto object-contain transition-all duration-500"
+              style={{
+                filter: isLight ? 'none' : 'brightness(0) invert(1)',
+              }}
+            />
           </Link>
 
           {/* Desktop links */}

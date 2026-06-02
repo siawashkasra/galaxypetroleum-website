@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { company } from '@/lib/data'
 
 const WA_NUMBER  = company.whatsapp.replace(/\D/g, '')
@@ -54,27 +55,14 @@ export default function Footer() {
           <div className="flex flex-col gap-5 sm:col-span-2 lg:col-span-1">
             {/* Logo text */}
             <div>
-              <p
-                className="text-white"
-                style={{
-                  fontFamily: 'var(--font-bebas-neue)',
-                  fontSize: '1.8rem',
-                  letterSpacing: '0.12em',
-                  lineHeight: 1,
-                }}
-              >
-                Galaxy
-              </p>
-              <p
-                className="text-gold"
-                style={{
-                  fontFamily: 'var(--font-bebas-neue)',
-                  fontSize: '0.75rem',
-                  letterSpacing: '0.45em',
-                }}
-              >
-                Petroleum
-              </p>
+              <Image
+                src="/logo.png"
+                alt="Galaxy Petroleum"
+                width={140}
+                height={50}
+                className="h-11 w-auto object-contain"
+                style={{ filter: 'brightness(0) invert(1)' }}
+              />
             </div>
 
             <p className="max-w-xs text-[13px] leading-7 text-white/45">
