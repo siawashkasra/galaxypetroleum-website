@@ -459,16 +459,16 @@ export default function JourneyMap() {
           </div>
 
           {/* Main content */}
-          <div className="grid flex-1 grid-cols-[38%_62%] overflow-hidden">
+          <div className="grid flex-1 grid-cols-[28%_72%] overflow-hidden">
 
             {/* Left — phase text */}
             <div className="flex flex-col justify-center border-r border-white/8 px-10 py-8">
               <PhaseContent phase={phase} />
             </div>
 
-            {/* Right — visualization */}
-            <div className="flex items-center justify-center px-8 py-6">
-              <div className="w-full max-w-[520px]">
+            {/* Right — map fills available space */}
+            <div className="flex items-center justify-center px-4 py-4">
+              <div className="w-full">
                 <SupplyRouteMap phase={phase} />
               </div>
             </div>
