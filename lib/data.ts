@@ -292,28 +292,28 @@ export const team: TeamMember[] = [
     name: 'Ahmad Karimi',
     title: 'Chief Executive Officer',
     image:
-      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'coo',
     name: 'Laila Ahmadi',
     title: 'Chief Operations Officer',
     image:
-      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'head-logistics',
     name: 'Rahmatullah Noori',
     title: 'Head of Logistics',
     image:
-      'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1705645930353-0e335311ef20?auto=format&fit=crop&w=600&q=85',
   },
   {
     id: 'head-supply',
     name: 'Farzana Wardak',
     title: 'Head of Supply Chain',
     image:
-      'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
+      'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=600&q=85',
   },
 ]
 
