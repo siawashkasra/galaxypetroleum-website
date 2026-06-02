@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
 import Navbar from '@/components/layout/Navbar'
+import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import './globals.css'
 
 const bebasNeue = Bebas_Neue({
@@ -71,6 +72,7 @@ export default function RootLayout({
       <body className="min-h-dvh antialiased">
         <Navbar />
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   )
