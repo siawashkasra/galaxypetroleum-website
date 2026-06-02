@@ -5,6 +5,7 @@ import About from '@/components/sections/About'
 import JourneyMap from '@/components/sections/JourneyMap'
 import Products from '@/components/sections/Products'
 import Services from '@/components/sections/Services'
+import Projects from '@/components/sections/Projects'
 
 export default function Home() {
   return (
@@ -16,11 +17,12 @@ export default function Home() {
       <JourneyMap />
       <Products />
       <Services />
+      <Projects />
 
       {/* Placeholder — remove as sessions complete */}
       <div className="flex min-h-screen items-center justify-center bg-background">
         <p className="text-sm tracking-widest text-muted uppercase">
-          Sessions 9 – 14 coming soon
+          Sessions 10 – 14 coming soon
         </p>
       </div>
     </main>

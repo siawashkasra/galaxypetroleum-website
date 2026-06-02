@@ -252,7 +252,7 @@ export const projects: Project[] = [
       'Establishing a city-wide fuel distribution network across Kabul, serving over 200 commercial clients with reliable daily supply.',
     year: '2024',
     image:
-      'https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1656988826404-bbb5ccb779bc?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'northern-corridor',
@@ -262,7 +262,7 @@ export const projects: Project[] = [
       'A dedicated supply corridor from Hairatan to Kunduz, reducing delivery time by 40% and increasing monthly throughput capacity.',
     year: '2024',
     image:
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1712237453935-d9da69d2ffb2?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'lpg-expansion',
@@ -272,7 +272,7 @@ export const projects: Project[] = [
       'Expanding LPG availability across 12 provinces, providing clean cooking and heating fuel to thousands of households and small businesses.',
     year: '2024',
     image:
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1664396113489-e50bddd4a777?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'generator-supply',
@@ -282,7 +282,7 @@ export const projects: Project[] = [
       'Dedicated fuel supply contracts with hospitals, telecommunications infrastructure, and critical government facilities across Afghanistan.',
     year: '2023',
     image:
-      'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1759692071712-adc78a8516c8?auto=format&fit=crop&w=1200&q=80',
   },
 ]
 
