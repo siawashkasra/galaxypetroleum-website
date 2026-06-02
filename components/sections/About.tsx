@@ -8,9 +8,9 @@ import { company } from '@/lib/data'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-// White Scania freight truck on open highway — fuel distribution logistics, verified relevant
+// Truck parked in front of factory — user-specified image, verified 200 OK
 const ABOUT_IMAGE =
-  'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85'
+  'https://images.unsplash.com/photo-1723366571202-df44608f9e53?auto=format&fit=crop&w=1400&q=85'
 
 const HIGHLIGHTS = [
   { value: 'Est. 2023',    label: 'Founded'        },
