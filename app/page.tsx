@@ -1,22 +1,16 @@
+import Hero from '@/components/sections/Hero'
+
 export default function Home() {
   return (
     <main>
-      {/* Dark hero placeholder — tests navbar transparent state */}
-      <section className="relative flex min-h-dvh items-center justify-center bg-ink-secondary">
-        <p
-          className="text-center text-6xl text-white/20"
-          style={{ fontFamily: 'var(--font-bebas-neue)', letterSpacing: '0.1em' }}
-        >
-          Hero — Session 2
-        </p>
-      </section>
+      <Hero />
 
-      {/* Light section placeholder — tests navbar scrolled state */}
-      <section className="flex min-h-screen items-center justify-center bg-background">
-        <p className="text-center text-2xl text-muted">
-          Scroll down to see navbar transition
+      {/* Placeholder — remove as sessions complete */}
+      <div className="flex min-h-screen items-center justify-center bg-background">
+        <p className="text-sm tracking-widest text-muted uppercase">
+          Sessions 3 – 14 coming soon
         </p>
-      </section>
+      </div>
     </main>
   )
 }
