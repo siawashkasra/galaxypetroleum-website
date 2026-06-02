@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowDown } from 'lucide-react'
-import RouteVisualization from '@/components/ui/RouteVisualization'
+import GlobeVisualization from '@/components/ui/GlobeVisualization'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -150,29 +150,46 @@ export default function Hero() {
           </motion.ul>
         </motion.div>
 
-        {/* ── Right: Route Visualization ───────────────────────────── */}
+        {/* ── Right: Globe ─────────────────────────────────────────── */}
         <motion.div
-          className="flex items-center justify-center pb-8 lg:w-[48%] lg:py-28"
-          initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 40 }}
+          className="flex items-center justify-center pb-8 lg:w-[48%] lg:py-16"
+          initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 48 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1.2, delay: 0.4, ease: EASE }}
+          transition={{ duration: 1.4, delay: 0.5, ease: EASE }}
           aria-hidden="true"
         >
-          {/* Outer glow container */}
-          <div className="relative w-full max-w-[520px]">
-            {/* Background card */}
+          <div className="relative w-full max-w-[560px]">
+            {/* Radial glow behind globe */}
             <div
-              className="absolute inset-0 rounded-sm opacity-40"
+              className="pointer-events-none absolute inset-0 -z-10"
               style={{
                 background:
-                  'radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 70%)',
+                  'radial-gradient(ellipse at center, rgba(201,168,76,0.1) 0%, transparent 65%)',
               }}
             />
             {/* Label */}
-            <p className="mb-3 text-center text-[9px] uppercase tracking-[0.35em] text-gold/50">
-              Live Supply Route
+            <p className="mb-1 text-center text-[9px] uppercase tracking-[0.4em] text-gold/40">
+              Global Supply Network
             </p>
-            <RouteVisualization />
+            <GlobeVisualization />
+            {/* Legend strip */}
+            <div className="mt-2 flex items-center justify-center gap-6">
+              {[
+                { color: 'rgba(201,168,76,0.6)', label: 'Source Nation' },
+                { color: '#C9A84C',              label: 'Border Crossing' },
+                { color: '#E8C96A',              label: 'Destination' },
+              ].map(({ color, label }) => (
+                <span key={label} className="flex items-center gap-1.5">
+                  <span
+                    className="inline-block h-1.5 w-1.5 rounded-full"
+                    style={{ background: color }}
+                  />
+                  <span className="text-[8px] uppercase tracking-[0.12em] text-white/35">
+                    {label}
+                  </span>
+                </span>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
