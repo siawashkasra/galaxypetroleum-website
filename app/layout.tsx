@@ -67,7 +67,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${bebasNeue.variable} ${inter.variable}`}>
+    <html lang="en" className={`${bebasNeue.variable} ${inter.variable}`} suppressHydrationWarning>
       <body className="min-h-dvh antialiased">
         <Navbar />
         {children}
