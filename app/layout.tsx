@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Inter } from 'next/font/google'
+import Navbar from '@/components/layout/Navbar'
 import './globals.css'
 
 const bebasNeue = Bebas_Neue({
@@ -52,10 +53,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-    },
+    googleBot: { index: true, follow: true },
   },
 }
 
@@ -70,7 +68,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${bebasNeue.variable} ${inter.variable}`}>
-      <body className="min-h-dvh antialiased">{children}</body>
+      <body className="min-h-dvh antialiased">
+        <Navbar />
+        {children}
+      </body>
     </html>
   )
 }
