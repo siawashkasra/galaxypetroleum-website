@@ -26,13 +26,6 @@ export default function Home() {
       <Team />
       <Testimonials />
       <Contact />
-
-      {/* Placeholder — remove as sessions complete */}
-      <div className="flex min-h-[20vh] items-center justify-center bg-background">
-        <p className="text-sm tracking-widest text-muted uppercase">
-          Session 14 — Footer coming soon
-        </p>
-      </div>
     </main>
   )
 }
