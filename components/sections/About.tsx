@@ -9,7 +9,7 @@ import { company } from '@/lib/data'
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
 const ABOUT_IMAGE =
-  'https://images.unsplash.com/photo-1581360742512-021d5b2157d4?auto=format&fit=crop&w=1400&q=85'
+  'https://images.unsplash.com/photo-1588011930968-eadac80e6a5a?auto=format&fit=crop&w=1400&q=85'
 
 const HIGHLIGHTS = [
   { value: 'Est. 2023',    label: 'Founded'        },
