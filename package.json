@@ -17,6 +17,7 @@
     "react-dom": "19.2.4",
     "react-globe.gl": "^2.38.0",
     "react-hook-form": "^7.77.0",
+    "react-simple-maps": "^3.0.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -24,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/react-simple-maps": "^3.0.6",
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4",

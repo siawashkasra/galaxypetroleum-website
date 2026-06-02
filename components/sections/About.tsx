@@ -8,9 +8,9 @@ import { company } from '@/lib/data'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-// Golden sunrise over oil field — pump jacks silhouetted, cinematic and directly relevant
+// White Scania freight truck on open highway — fuel distribution logistics, verified relevant
 const ABOUT_IMAGE =
-  'https://images.unsplash.com/photo-1773097258874-17d6446c3113?auto=format&fit=crop&w=1400&q=85'
+  'https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=1400&q=85'
 
 const HIGHLIGHTS = [
   { value: 'Est. 2023',    label: 'Founded'        },

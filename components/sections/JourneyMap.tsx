@@ -1,7 +1,14 @@
 'use client'
 
 import { useRef, useState } from 'react'
+import dynamic from 'next/dynamic'
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion'
+
+// Dynamic import — d3-geo and react-simple-maps require browser APIs
+const SupplyRouteMap = dynamic(
+  () => import('@/components/ui/SupplyRouteMap'),
+  { ssr: false, loading: () => <div className="flex h-full w-full items-center justify-center"><span className="text-[10px] uppercase tracking-widest text-gold/30">Loading map…</span></div> }
+)
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -462,7 +469,7 @@ export default function JourneyMap() {
             {/* Right — visualization */}
             <div className="flex items-center justify-center px-8 py-6">
               <div className="w-full max-w-[520px]">
-                <JourneyViz phase={phase} />
+                <SupplyRouteMap phase={phase} />
               </div>
             </div>
           </div>
@@ -509,7 +516,7 @@ export default function JourneyMap() {
 
         {/* Visualization */}
         <div className="px-6 py-8">
-          <JourneyViz phase={mobilePhase} />
+          <SupplyRouteMap phase={mobilePhase} />
         </div>
 
         {/* Phase tabs */}
