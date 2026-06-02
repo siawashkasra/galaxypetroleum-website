@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  /* ─── Brand Palette ──────────────────────────────────────── */
+  --color-background: #FAFAF8;
+  --color-surface: #F2F0EC;
+  --color-surface-alt: #E8E6E1;
+  --color-border: #E0DDD8;
+
+  --color-gold: #C9A84C;
+  --color-gold-dark: #A6863A;
+  --color-gold-light: #E8C96A;
+
+  --color-ink: #0A0A0A;
+  --color-ink-secondary: #1A1A1A;
+  --color-muted: #6B6B6B;
+  --color-white: #FFFFFF;
+
+  /* ─── Typography ─────────────────────────────────────────── */
+  --font-display: var(--font-bebas-neue);
+  --font-sans: var(--font-inter);
+
+  /* ─── Easing ─────────────────────────────────────────────── */
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ─── Reset & Base ───────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100dvh;
+  line-height: 1.6;
+}
+
+/* ─── Selection ──────────────────────────────────────────────── */
+::selection {
+  background-color: var(--color-gold);
+  color: var(--color-white);
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-surface);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-gold);
+  border-radius: 99px;
+}
+
+/* ─── Focus Ring ─────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 3px;
+}
