@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
@@ -20,15 +20,34 @@ const NAV_LINKS = [
 const SCROLL_THRESHOLD = 80
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const prefersReducedMotion = useReducedMotion()
+  const [isScrolled, setIsScrolled]   = useState(false)
+  const [isVisible, setIsVisible]     = useState(true)
+  const [isMenuOpen, setIsMenuOpen]   = useState(false)
+  const prefersReducedMotion          = useReducedMotion()
+  const lastScrollY                   = useRef(0)
 
   const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > SCROLL_THRESHOLD)
+    const currentY = window.scrollY
+    const delta    = currentY - lastScrollY.current
+
+    setIsScrolled(currentY > SCROLL_THRESHOLD)
+
+    if (currentY < SCROLL_THRESHOLD) {
+      setIsVisible(true)
+    } else if (delta > 6) {
+      // Scrolling down — hide
+      setIsVisible(false)
+      setIsMenuOpen(false) // close mobile menu if open
+    } else if (delta < -4) {
+      // Scrolling up — reveal
+      setIsVisible(true)
+    }
+
+    lastScrollY.current = currentY
   }, [])
 
   useEffect(() => {
+    lastScrollY.current = window.scrollY
     handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -47,12 +66,17 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      <motion.header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
           isLight
             ? 'bg-background/95 backdrop-blur-md border-b border-border shadow-sm'
             : 'bg-transparent'
         }`}
+        animate={{ y: isVisible ? '0%' : '-100%' }}
+        transition={{
+          duration: prefersReducedMotion ? 0 : 0.35,
+          ease: [0.16, 1, 0.3, 1],
+        }}
       >
         <nav
           className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10 lg:py-5"
@@ -151,7 +175,7 @@ export default function Navbar() {
             </AnimatePresence>
           </button>
         </nav>
-      </header>
+      </motion.header>
 
       {/* Mobile menu */}
       <AnimatePresence>

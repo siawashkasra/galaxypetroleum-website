@@ -66,174 +66,245 @@ const CROSSING_NODES = [
   { id: 'tor-ghondi', label: 'Tor Ghondi', x: 238, y: 228 },
 ]
 
-const ROUTE_PATHS = [
-  'M238,36  C250,128 278,174 295,216',
-  'M238,36  C262,124 308,168 316,208',
-  'M100,52  C148,128 228,178 295,216',
-  'M132,126 C148,176 176,214 205,238',
-  'M112,194 C138,208 168,224 205,238',
-  'M292,126 C274,166 256,196 238,228',
-  'M292,126 C292,168 292,194 295,216',
-  'M310,78  C308,148 298,184 295,216',
-  'M310,78  C316,142 318,174 316,208',
-  'M295,216 C292,246 282,266 268,286',
-  'M316,208 C308,240 288,266 268,286',
-  'M205,238 C220,258 248,274 268,286',
-  'M238,228 C246,252 256,270 268,286',
+interface RouteEdge { id: string; d: string; dur: string; begin: string }
+const ROUTES: RouteEdge[] = [
+  { id: 'jr0',  d: 'M238,36  C250,128 278,174 295,216', dur: '2.8s', begin: '0.0s' },
+  { id: 'jr1',  d: 'M238,36  C262,124 308,168 316,208', dur: '2.9s', begin: '0.3s' },
+  { id: 'jr2',  d: 'M100,52  C148,128 228,178 295,216', dur: '3.4s', begin: '0.6s' },
+  { id: 'jr3',  d: 'M132,126 C148,176 176,214 205,238', dur: '2.5s', begin: '0.9s' },
+  { id: 'jr4',  d: 'M112,194 C138,208 168,224 205,238', dur: '2.2s', begin: '1.2s' },
+  { id: 'jr5',  d: 'M292,126 C274,166 256,196 238,228', dur: '2.4s', begin: '1.5s' },
+  { id: 'jr6',  d: 'M292,126 C292,168 292,194 295,216', dur: '2.3s', begin: '1.8s' },
+  { id: 'jr7',  d: 'M310,78  C308,148 298,184 295,216', dur: '2.7s', begin: '2.1s' },
+  { id: 'jr8',  d: 'M310,78  C316,142 318,174 316,208', dur: '2.8s', begin: '2.4s' },
+  { id: 'jr9',  d: 'M295,216 C292,246 282,266 268,286', dur: '1.6s', begin: '2.7s' },
+  { id: 'jr10', d: 'M316,208 C308,240 288,266 268,286', dur: '1.7s', begin: '2.9s' },
+  { id: 'jr11', d: 'M205,238 C220,258 248,274 268,286', dur: '1.8s', begin: '3.1s' },
+  { id: 'jr12', d: 'M238,228 C246,252 256,270 268,286', dur: '1.7s', begin: '3.3s' },
 ]
 
-/* opacity[type][phase] */
+/* Phase opacity table */
 const OPC = {
-  source:   [1.00, 0.30, 0.40],
-  route:    [0.12, 0.90, 0.50],
-  crossing: [0.20, 1.00, 0.45],
-  dest:     [0.10, 0.30, 1.00],
+  source:   [1.00, 0.22, 0.35],
+  route:    [0.10, 1.00, 0.55],
+  crossing: [0.14, 1.00, 0.42],
+  dest:     [0.08, 0.28, 1.00],
 } as const
 
 type OpcKey = keyof typeof OPC
 const opc = (key: OpcKey, phase: number) => OPC[key][phase] ?? 1
 
-/* ─── Journey SVG ────────────────────────────────────────────── */
+/* ─── Premium Journey SVG ────────────────────────────────────── */
 
 function JourneyViz({ phase }: { phase: number }) {
-  const tr = 'opacity 0.7s ease'
+  const T = 'opacity 0.65s ease, filter 0.65s ease'
 
   return (
     <svg
-      viewBox="0 0 480 330"
+      viewBox="0 0 480 342"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
       className="w-full"
     >
       <defs>
-        <radialGradient id="jdest-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%" stopColor="#C9A84C" stopOpacity="0.4" />
+        {ROUTES.map(r => <path key={`def-${r.id}`} id={r.id} d={r.d} />)}
+
+        <filter id="glow-lg" x="-80%" y="-80%" width="260%" height="260%">
+          <feGaussianBlur stdDeviation="7" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <filter id="glow-md" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="4" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <filter id="glow-sm" x="-40%" y="-40%" width="180%" height="180%">
+          <feGaussianBlur stdDeviation="2.5" result="b" />
+          <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+        </filter>
+        <filter id="blur-only"><feGaussianBlur stdDeviation="5" /></filter>
+
+        <pattern id="jdots" x="0" y="0" width="22" height="22" patternUnits="userSpaceOnUse">
+          <circle cx="11" cy="11" r="0.7" fill="#C9A84C" opacity="0.12" />
+        </pattern>
+
+        <linearGradient id="rgrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%"   stopColor="#C9A84C" stopOpacity="0.35" />
+          <stop offset="65%"  stopColor="#C9A84C" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="#E8C96A" stopOpacity="0.95" />
+        </linearGradient>
+
+        <radialGradient id="dest-aura" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stopColor="#C9A84C" stopOpacity="0.45" />
+          <stop offset="55%"  stopColor="#C9A84C" stopOpacity="0.12" />
           <stop offset="100%" stopColor="#C9A84C" stopOpacity="0" />
         </radialGradient>
-        <filter id="jglow">
-          <feGaussianBlur stdDeviation="3" result="blur" />
-          <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-        </filter>
       </defs>
 
-      {/* Afghanistan territory */}
+      {/* Dot-grid texture */}
+      <rect width="480" height="342" fill="url(#jdots)" />
+
+      {/* Transit zone horizon line */}
+      <line x1="0" y1="204" x2="480" y2="204"
+        stroke="#C9A84C" strokeOpacity="0.07" strokeWidth="1" strokeDasharray="6 14" />
+
+      {/* Afghanistan territory polygon */}
       <path
-        d="M190,220 L318,202 L360,228 L368,282 L338,312 L274,318 L208,292 L192,262 Z"
-        fill="#C9A84C"
-        stroke="#C9A84C"
-        strokeWidth="1"
-        strokeDasharray="4 6"
-        style={{ fillOpacity: opc('dest', phase) * 0.06, strokeOpacity: opc('dest', phase) * 0.18, transition: tr }}
+        d="M188,218 L320,200 L362,226 L370,280 L340,312 L274,318 L206,292 L190,260 Z"
+        fill="#C9A84C" stroke="#C9A84C" strokeWidth="1" strokeDasharray="5 8"
+        style={{ fillOpacity: opc('dest', phase) * 0.07, strokeOpacity: opc('dest', phase) * 0.22, transition: T }}
       />
 
-      {/* Destination glow aura */}
-      <circle
-        cx={268} cy={286} r={55}
-        fill="url(#jdest-glow)"
-        style={{ opacity: opc('dest', phase), transition: tr }}
-      />
-
-      {/* Route paths */}
-      {ROUTE_PATHS.map((d, i) => (
-        <motion.path
-          key={i}
-          d={d}
-          stroke="#C9A84C"
-          strokeWidth="1.5"
-          strokeLinecap="round"
-          strokeDasharray="4 10"
-          animate={{ strokeDashoffset: [0, -14] }}
-          transition={{ repeat: Infinity, duration: 1.6, ease: 'linear', delay: i * 0.1 }}
-          style={{ opacity: opc('route', phase), transition: tr }}
+      {/* Route glow base */}
+      {ROUTES.map(r => (
+        <path key={`gb-${r.id}`} d={r.d}
+          stroke="#C9A84C" strokeWidth="6" strokeLinecap="round"
+          filter="url(#blur-only)"
+          style={{ opacity: opc('route', phase) * 0.22, transition: T }}
         />
       ))}
 
+      {/* Route dashed main lines */}
+      {ROUTES.map(r => (
+        <motion.path key={`ml-${r.id}`} d={r.d}
+          stroke="url(#rgrad)" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="5 13"
+          animate={{ strokeDashoffset: [0, -18] }}
+          transition={{ repeat: Infinity, duration: 1.8, ease: 'linear' }}
+          style={{ opacity: opc('route', phase), transition: T }}
+        />
+      ))}
+
+      {/* Flowing particles */}
+      {ROUTES.map(r => (
+        <circle key={`pt-${r.id}`} r="2.8" fill="#E8C96A"
+          style={{ opacity: opc('route', phase) * 0.95, transition: T }}
+        >
+          <animateMotion dur={r.dur} repeatCount="indefinite" begin={r.begin}>
+            <mpath href={`#${r.id}`} />
+          </animateMotion>
+        </circle>
+      ))}
+
       {/* Source country nodes */}
-      {SOURCE_NODES.map(node => (
-        <g key={node.id} style={{ opacity: opc('source', phase), transition: tr }}>
-          {/* Pulse ring — only visible in phase 0 */}
-          <motion.circle
-            cx={node.x} cy={node.y} r={10}
-            stroke="#C9A84C" strokeWidth="1" fill="none"
-            animate={{ scale: [0.8, 1.8], opacity: [0.6, 0] }}
-            transition={{ repeat: Infinity, duration: 2.2, ease: 'easeOut', delay: Math.random() * 1.5 }}
-            style={{ transformOrigin: `${node.x}px ${node.y}px`, display: phase === 0 ? 'block' : 'none' }}
+      {SOURCE_NODES.map((node, i) => (
+        <g key={node.id} style={{ opacity: opc('source', phase), transition: T }}>
+          <motion.circle cx={node.x} cy={node.y} r={15}
+            stroke="#C9A84C" strokeWidth="0.8" fill="none"
+            animate={phase === 0 ? { scale: [0.9, 1.9], opacity: [0.5, 0] } : { scale: 1, opacity: 0 }}
+            transition={{ repeat: Infinity, duration: 2.4, ease: 'easeOut', delay: i * 0.35 }}
+            style={{ transformOrigin: `${node.x}px ${node.y}px` }}
           />
-          <circle cx={node.x} cy={node.y} r={6} stroke="#C9A84C" strokeWidth="1.5" fill="#0C0C0A" />
-          <circle cx={node.x} cy={node.y} r={2.5} fill="#C9A84C" />
-          {/* Flag */}
-          <text x={node.x} y={node.y - 13} textAnchor="middle" fontSize="10" style={{ fontFamily: 'sans-serif' }}>
-            {node.flag}
-          </text>
-          {/* Name */}
-          <text
-            x={node.x} y={node.y + 17}
-            textAnchor="middle"
-            fill="white" fillOpacity="0.55"
-            fontSize="7.5"
-            style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.06em' }}
-          >
-            {node.label}
-          </text>
+          <circle cx={node.x} cy={node.y} r={11}
+            stroke="#C9A84C" strokeWidth="1" fill="none" strokeOpacity="0.45"
+            filter={phase === 0 ? 'url(#glow-sm)' : undefined}
+          />
+          <circle cx={node.x} cy={node.y} r={7} stroke="#C9A84C" strokeWidth="1.2" fill="#0C0C0A" />
+          <circle cx={node.x} cy={node.y} r={3.5} fill="#C9A84C"
+            filter={phase === 0 ? 'url(#glow-sm)' : undefined}
+          />
+          <text x={node.x} y={node.y - 18} textAnchor="middle" fontSize="11"
+            style={{ fontFamily: 'sans-serif' }}>{node.flag}</text>
+          <text x={node.x} y={node.y + 21} textAnchor="middle"
+            fill="white" fillOpacity="0.65" fontSize="7.5"
+            style={{ fontFamily: 'var(--font-inter),sans-serif', letterSpacing: '0.07em' }}
+          >{node.label}</text>
         </g>
       ))}
 
       {/* Border crossing nodes */}
       {CROSSING_NODES.map(node => (
-        <g key={node.id} style={{ opacity: opc('crossing', phase), transition: tr }}>
-          <rect
-            x={node.x - 5} y={node.y - 5} width={10} height={10}
+        <g key={node.id} style={{ opacity: opc('crossing', phase), transition: T }}>
+          <rect x={node.x - 9} y={node.y - 9} width={18} height={18}
+            transform={`rotate(45 ${node.x} ${node.y})`}
+            fill="none" stroke="#C9A84C" strokeWidth="0.8" strokeOpacity="0.4"
+            filter={phase === 1 ? 'url(#glow-sm)' : undefined}
+          />
+          <rect x={node.x - 6} y={node.y - 6} width={12} height={12}
             transform={`rotate(45 ${node.x} ${node.y})`}
             fill="#C9A84C" fillOpacity="0.9"
-            filter={phase === 1 ? 'url(#jglow)' : undefined}
+            filter={phase === 1 ? 'url(#glow-sm)' : undefined}
           />
-          <text
-            x={node.x + 9} y={node.y + 3}
-            fill="#C9A84C" fillOpacity="0.9"
-            fontSize="7.5"
-            style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.05em' }}
-          >
-            {node.label}
-          </text>
+          <rect x={node.x - 3} y={node.y - 3} width={6} height={6}
+            transform={`rotate(45 ${node.x} ${node.y})`}
+            fill="#E8C96A"
+          />
+          <text x={node.x + 12} y={node.y + 3.5}
+            fill="#E8C96A" fillOpacity="0.9" fontSize="7.5"
+            style={{ fontFamily: 'var(--font-inter),sans-serif', letterSpacing: '0.06em', fontWeight: 500 }}
+          >{node.label}</text>
         </g>
       ))}
 
+      {/* Phase zone labels */}
+      <text x={468} y={96} textAnchor="end" fill="#C9A84C" fontSize="7" letterSpacing="0.14em"
+        style={{ opacity: phase === 0 ? 0.7 : 0.1, transition: T, fontFamily: 'var(--font-inter),sans-serif' }}
+      >SOURCE NATIONS ↓</text>
+      <text x={468} y={206} textAnchor="end" fill="#C9A84C" fontSize="7" letterSpacing="0.14em"
+        style={{ opacity: phase === 1 ? 0.7 : 0.1, transition: T, fontFamily: 'var(--font-inter),sans-serif' }}
+      >TRANSIT ZONE ↓</text>
+
       {/* Afghanistan destination */}
-      <g style={{ opacity: opc('dest', phase), transition: tr }}>
-        {phase === 2 && (
-          <>
-            <motion.circle
-              cx={268} cy={286} r={24} stroke="#C9A84C" strokeWidth="0.8" fill="none"
-              animate={{ scale: [1, 1.4, 1], opacity: [0.3, 0, 0.3] }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut' }}
-              style={{ transformOrigin: '268px 286px' }}
-            />
-            <motion.circle
-              cx={268} cy={286} r={16} stroke="#C9A84C" strokeWidth="1" fill="none"
-              animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.1, 0.5] }}
-              transition={{ repeat: Infinity, duration: 3, ease: 'easeInOut', delay: 0.5 }}
-              style={{ transformOrigin: '268px 286px' }}
-            />
-          </>
-        )}
-        <circle cx={268} cy={286} r={10} fill="#C9A84C" fillOpacity="0.15" filter="url(#jglow)" />
-        <circle cx={268} cy={286} r={8}  fill="#C9A84C" />
-        <circle cx={268} cy={286} r={3.5} fill="white" />
-        <text x={268} y={268} textAnchor="middle" fontSize="13" style={{ fontFamily: 'sans-serif' }}>🇦🇫</text>
-        <text
-          x={268} y={304}
-          textAnchor="middle" fill="#E8C96A" fontSize="9"
-          style={{ fontFamily: 'var(--font-inter), sans-serif', fontWeight: 600, letterSpacing: '0.14em', textTransform: 'uppercase' }}
-        >
-          Afghanistan
-        </text>
+      <g>
+        {/* Massive aura */}
+        <circle cx={268} cy={284} r={72} fill="url(#dest-aura)"
+          style={{ opacity: opc('dest', phase), transition: T }}
+        />
+
+        {/* Expanding rings — phase 2 */}
+        {([38, 28, 20] as const).map((r, i) => (
+          <motion.circle key={r} cx={268} cy={284} r={r}
+            stroke="#C9A84C" strokeWidth={i === 0 ? 0.6 : 0.9} fill="none"
+            animate={phase === 2
+              ? { scale: [1, 1 + 0.25 * (i + 1), 1], opacity: [0.35, 0, 0.35] }
+              : { scale: 1, opacity: 0 }
+            }
+            transition={{ repeat: Infinity, duration: 3.2, ease: 'easeInOut', delay: i * 0.7 }}
+            style={{ transformOrigin: '268px 284px' }}
+          />
+        ))}
+
+        {/* Static ring */}
+        <circle cx={268} cy={284} r={16}
+          stroke="#C9A84C" strokeWidth="1" fill="none"
+          style={{ opacity: opc('dest', phase) * 0.6, transition: T }}
+          filter={phase === 2 ? 'url(#glow-md)' : undefined}
+        />
+
+        {/* Glow fill */}
+        <circle cx={268} cy={284} r={13} fill="#C9A84C"
+          style={{ opacity: opc('dest', phase) * 0.18, transition: T }}
+          filter="url(#glow-lg)"
+        />
+
+        {/* Core */}
+        <circle cx={268} cy={284} r={10} fill="#C9A84C"
+          style={{ opacity: opc('dest', phase), transition: T }}
+          filter={phase === 2 ? 'url(#glow-md)' : undefined}
+        />
+        <circle cx={268} cy={284} r={4.5} fill="white"
+          style={{ opacity: opc('dest', phase), transition: T }}
+        />
+
+        {/* Flag */}
+        <text x={268} y={264} textAnchor="middle" fontSize="14"
+          style={{ opacity: opc('dest', phase), transition: T, fontFamily: 'sans-serif' }}
+        >🇦🇫</text>
+
+        {/* AFGHANISTAN label */}
+        <text x={268} y={305} textAnchor="middle" fill="#E8C96A" fontSize="9" letterSpacing="0.16em"
+          style={{ opacity: opc('dest', phase), transition: T, fontFamily: 'var(--font-inter),sans-serif', fontWeight: 600 }}
+        >AFGHANISTAN</text>
+
+        {/* FINAL DESTINATION — phase 2 only */}
+        <text x={268} y={318} textAnchor="middle" fill="#C9A84C" fontSize="6.5" letterSpacing="0.2em"
+          style={{ opacity: phase === 2 ? 0.55 : 0, transition: T, fontFamily: 'var(--font-inter),sans-serif' }}
+        >FINAL DESTINATION</text>
       </g>
 
       {/* Legend */}
-      <text x={8} y={326} fill="white" fillOpacity="0.25" fontSize="7" style={{ fontFamily: 'var(--font-inter), sans-serif', letterSpacing: '0.1em' }}>
-        6 SOURCE NATIONS · 4 ENTRY POINTS · 1 DESTINATION
-      </text>
+      <text x={8} y={338} fill="white" fillOpacity="0.22" fontSize="6.5"
+        style={{ fontFamily: 'var(--font-inter),sans-serif', letterSpacing: '0.1em' }}
+      >6 SOURCE NATIONS · 4 ENTRY POINTS · 1 DESTINATION</text>
     </svg>
   )
 }

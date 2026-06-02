@@ -8,8 +8,9 @@ import { company } from '@/lib/data'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
+// Golden sunrise over oil field — pump jacks silhouetted, cinematic and directly relevant
 const ABOUT_IMAGE =
-  'https://images.unsplash.com/photo-1588011930968-eadac80e6a5a?auto=format&fit=crop&w=1400&q=85'
+  'https://images.unsplash.com/photo-1773097258874-17d6446c3113?auto=format&fit=crop&w=1400&q=85'
 
 const HIGHLIGHTS = [
   { value: 'Est. 2023',    label: 'Founded'        },
