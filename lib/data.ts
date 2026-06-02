@@ -45,7 +45,7 @@ export const products: Product[] = [
       { label: 'Standard', value: 'Euro 4 equivalent' },
     ],
     image:
-      'https://images.unsplash.com/photo-1615811361523-6bd03d7748e7?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1695018854387-9713ef1954c0?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'ai-80',
@@ -60,7 +60,7 @@ export const products: Product[] = [
       { label: 'Standard', value: 'Euro 2 equivalent' },
     ],
     image:
-      'https://images.unsplash.com/photo-1545558014-8692077e9b5c?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1644246905181-c3753e9a82bd?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'diesel',
@@ -75,7 +75,7 @@ export const products: Product[] = [
       { label: 'Cetane Number', value: '51 min' },
     ],
     image:
-      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1653886230879-56aa325a2419?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'lpg',
@@ -90,7 +90,7 @@ export const products: Product[] = [
       { label: 'Packaging', value: 'Cylinders & bulk tankers' },
     ],
     image:
-      'https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=1200&q=80',
+      'https://images.unsplash.com/photo-1644217209694-5ca176114adb?auto=format&fit=crop&w=1200&q=80',
   },
 ]
 
