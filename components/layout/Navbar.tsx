@@ -68,12 +68,14 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="Galaxy Petroleum"
-              width={130}
-              height={46}
+              width={180}
+              height={64}
               priority
-              className="h-10 w-auto object-contain transition-all duration-500"
+              className="h-14 w-auto object-contain transition-all duration-500"
               style={{
-                filter: isLight ? 'none' : 'brightness(0) invert(1)',
+                filter: isLight
+                  ? 'none'
+                  : 'brightness(0) invert(1)',
               }}
             />
           </Link>

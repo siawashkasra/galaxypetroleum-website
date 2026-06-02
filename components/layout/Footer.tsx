@@ -58,10 +58,9 @@ export default function Footer() {
               <Image
                 src="/logo.png"
                 alt="Galaxy Petroleum"
-                width={140}
-                height={50}
-                className="h-11 w-auto object-contain"
-                style={{ filter: 'brightness(0) invert(1)' }}
+                width={180}
+                height={64}
+                className="h-14 w-auto object-contain"
               />
             </div>
 
