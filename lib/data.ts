@@ -151,6 +151,7 @@ export const sourceCountries: SourceCountry[] = [
       "One of the world's largest petroleum exporters. Galaxy sources crude derivatives and refined products from established Russian suppliers.",
     products: ['Diesel', 'Petrol AI 92', 'LPG'],
     coordinates: { x: 62, y: 18 },
+    featuredBadge: 'Largest Oil Exporter',
   },
   {
     id: 'belarus',

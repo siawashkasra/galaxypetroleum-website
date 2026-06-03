@@ -6,7 +6,106 @@ import type { SourceCountry } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-/* ─── Country card ───────────────────────────────────────────── */
+/* ─── Featured country card (full-width, horizontal) ─────────── */
+
+function FeaturedCountryCard({ country }: { country: SourceCountry }) {
+  return (
+    <motion.article
+      className="group relative mb-4 overflow-hidden border border-gold/30 bg-surface"
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.8, ease: EASE }}
+    >
+      {/* Subtle gold gradient wash */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: 'linear-gradient(105deg, rgba(201,168,76,0.06) 0%, transparent 55%)',
+        }}
+      />
+
+      <div className="relative flex flex-col gap-6 p-6 lg:flex-row lg:items-center lg:gap-10 lg:p-10">
+
+        {/* Left — number + flag */}
+        <div className="flex shrink-0 items-center gap-5 lg:flex-col lg:items-start lg:gap-3">
+          <span
+            className="font-medium tabular-nums text-gold/40"
+            style={{ fontSize: '11px', letterSpacing: '0.1em' }}
+            aria-hidden="true"
+          >
+            01
+          </span>
+          <span
+            className="leading-none transition-transform duration-500 group-hover:scale-105"
+            style={{ fontSize: '4rem' }}
+            role="img"
+            aria-label={`${country.name} flag`}
+          >
+            {country.flag}
+          </span>
+        </div>
+
+        {/* Center — name + description */}
+        <div className="flex-1">
+          {/* Badge */}
+          {country.featuredBadge && (
+            <span
+              className="mb-3 inline-flex items-center gap-1.5 bg-gold px-3 py-1 text-[9px] font-semibold uppercase tracking-[0.22em] text-white"
+              style={{ borderRadius: '1px' }}
+            >
+              <span aria-hidden="true">★</span>
+              {country.featuredBadge}
+            </span>
+          )}
+
+          <h3
+            className="mb-3 text-ink transition-colors duration-300 group-hover:text-gold"
+            style={{
+              fontFamily: 'var(--font-bebas-neue)',
+              fontSize: 'clamp(2.4rem, 5vw, 3.8rem)',
+              letterSpacing: '0.04em',
+              lineHeight: 1,
+              display: 'block',
+            }}
+          >
+            {country.name}
+          </h3>
+
+          <p className="max-w-xl text-[13px] leading-7 text-muted">
+            {country.description}
+          </p>
+        </div>
+
+        {/* Right — products */}
+        <div className="shrink-0 lg:text-right">
+          <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-[0.25em] text-muted">
+            Products Supplied
+          </p>
+          <div className="flex flex-wrap gap-1.5 lg:justify-end">
+            {country.products.map(product => (
+              <span
+                key={product}
+                className="border border-gold/35 px-2.5 py-1 text-[9px] font-medium uppercase tracking-[0.18em] text-gold/90 transition-colors duration-300 group-hover:border-gold/60 group-hover:text-gold"
+              >
+                {product}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Gold bottom rule — always visible, brightens on hover */}
+      <div
+        aria-hidden="true"
+        className="h-0.5 w-full bg-gold/40 transition-all duration-500 group-hover:bg-gold"
+      />
+    </motion.article>
+  )
+}
+
+/* ─── Standard country card ──────────────────────────────────── */
 
 function CountryCard({
   country,
@@ -15,7 +114,7 @@ function CountryCard({
   country: SourceCountry
   index: number
 }) {
-  const num = String(index + 1).padStart(2, '0')
+  const num = String(index + 2).padStart(2, '0')   // starts at 02 — featured is 01
 
   return (
     <motion.article
@@ -136,20 +235,22 @@ export default function Network() {
           </motion.p>
         </div>
 
-        {/* Country card grid — 7 items: last card centered on sm (col-span-2 half-width) and lg (col-start-2) */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sourceCountries.map((country, i) => {
-            const isLast = i === sourceCountries.length - 1
-            return (
-              <div
-                key={country.id}
-                className={isLast ? 'sm:col-span-2 sm:mx-auto sm:w-1/2 lg:col-span-1 lg:col-start-2 lg:mx-0 lg:w-auto' : undefined}
-              >
-                <CountryCard country={country} index={i} />
+        {/* Featured card — full width, always first */}
+        {(() => {
+          const featured = sourceCountries.find(c => c.featuredBadge)
+          const rest     = sourceCountries.filter(c => !c.featuredBadge)
+          return (
+            <>
+              {featured && <FeaturedCountryCard country={featured} />}
+              {/* Remaining 6 — clean 3×2 grid, no orphan */}
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {rest.map((country, i) => (
+                  <CountryCard key={country.id} country={country} index={i} />
+                ))}
               </div>
-            )
-          })}
-        </div>
+            </>
+          )
+        })()}
 
         {/* Bottom stat strip */}
         <motion.div
@@ -160,7 +261,7 @@ export default function Network() {
           transition={{ duration: 0.6, delay: 0.5, ease: EASE }}
         >
           {[
-            { value: '6',   label: 'Source Countries'   },
+            { value: '7',   label: 'Source Countries'   },
             { value: '4',   label: 'Border Entry Points' },
             { value: '34',  label: 'Provinces Served'    },
           ].map(({ value, label }) => (

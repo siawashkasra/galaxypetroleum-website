@@ -21,6 +21,8 @@ export interface SourceCountry {
   description: string
   products: string[]
   coordinates: { x: number; y: number }
+  /** When set, this country renders as the full-width featured card with this badge label */
+  featuredBadge?: string
 }
 
 export interface BorderCrossing {
