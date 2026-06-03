@@ -89,6 +89,8 @@ export interface JourneySourceCountryData {
   /** Single evocative line — storytelling, not product specs */
   tagline: string
   products: string[]
+  /** Approximate straight-line distance in km from the source city to Kabul */
+  distanceKm: number
 }
 
 export interface JourneyCrossing {

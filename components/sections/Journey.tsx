@@ -107,137 +107,224 @@ function GoldRule({ delay = 0.14, center = false }: { delay?: number; center?: b
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   CHAPTER 1 — THE SOURCE
+   CHAPTER 1 — THE SOURCE  (Distance Board)
 ═══════════════════════════════════════════════════════════════ */
 
-function CountryCard({
+const MAX_DISTANCE = Math.max(...SOURCES.map(s => s.distanceKm))
+
+function DistanceBoardRow({
   country,
   index,
 }: {
   country: JourneySourceCountryData
   index: number
 }) {
-  const [hovered, setHovered] = useState(false)
+  const ref  = useRef<HTMLDivElement>(null)
+  const inView = useInView(ref, { once: true, margin: '-40px' })
+  const pct  = (country.distanceKm / MAX_DISTANCE) * 100
+
+  /* km count-up */
+  const [km, setKm] = useState(0)
+  useEffect(() => {
+    if (!inView) return
+    const DURATION = 1800
+    const start = performance.now()
+    const tick = (now: number) => {
+      const p = Math.min((now - start) / DURATION, 1)
+      const eased = p === 1 ? 1 : 1 - Math.pow(2, -10 * p)
+      setKm(Math.round(eased * country.distanceKm))
+      if (p < 1) requestAnimationFrame(tick)
+    }
+    const id = setTimeout(() => requestAnimationFrame(tick), index * 80)
+    return () => clearTimeout(id)
+  }, [inView, country.distanceKm, index])
 
   return (
-    <motion.article
-      initial={{ opacity: 0, y: 48 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '-40px' }}
-      transition={{ duration: 0.85, ease: EASE, delay: index * 0.09 }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      aria-label={`${country.name}: ${country.tagline}`}
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, x: -20 }}
+      animate={inView ? { opacity: 1, x: 0 } : {}}
+      transition={{ duration: 0.65, ease: EASE, delay: index * 0.08 }}
       style={{
-        position: 'relative',
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',       // fills grid cell → all cards same height
-        padding: '1.75rem 1.5rem',
-        background: hovered ? 'rgba(201,168,76,0.04)' : 'rgba(255,255,255,0.025)',
-        border: `1px solid ${hovered ? 'rgba(201,168,76,0.5)' : 'rgba(255,255,255,0.07)'}`,
-        borderRadius: '2px',
-        cursor: 'default',
-        transform: hovered ? 'translateY(-7px)' : 'translateY(0)',
-        transition: 'transform 0.45s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, background 0.3s, box-shadow 0.45s',
-        boxShadow: hovered
-          ? '0 24px 64px rgba(201,168,76,0.1), 0 0 0 1px rgba(201,168,76,0.18)'
-          : 'none',
+        borderBottom: '1px solid rgba(255,255,255,0.06)',
+        padding: '1.25rem 0',
       }}
     >
-      {/* Flag — real CSS flag via flag-icons library */}
-      <span
-        className={`fi fi-${country.flagCode}`}
-        role="img"
-        aria-label={`Flag of ${country.name}`}
-        style={{
-          display: 'inline-block',
-          width: '52px',
-          height: '39px',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          borderRadius: '2px',
-          marginBottom: '1.25rem',
-          boxShadow: '0 2px 14px rgba(0,0,0,0.55)',
-          flexShrink: 0,
-        }}
-      />
+      {/* ── Desktop: single-line 3-col layout ──────────────────── */}
+      <div className="hidden items-center gap-6 sm:flex">
 
-      {/* Country name */}
-      <h3
-        style={{
-          fontFamily: 'var(--font-bebas-neue)',
-          fontSize: 'clamp(1.4rem, 2vw, 1.75rem)',
-          letterSpacing: '0.07em',
-          color: 'white',
-          lineHeight: 1,
-          marginBottom: '0.625rem',
-        }}
-      >
-        {country.name}
-      </h3>
+        {/* Left — flag + name */}
+        <div className="flex shrink-0 items-center gap-3" style={{ width: '200px' }}>
+          <span
+            className={`fi fi-${country.flagCode}`}
+            role="img"
+            aria-label={`Flag of ${country.name}`}
+            style={{
+              display: 'inline-block',
+              width: '32px',
+              height: '24px',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              borderRadius: '1px',
+              boxShadow: '0 1px 6px rgba(0,0,0,0.5)',
+              flexShrink: 0,
+            }}
+          />
+          <h3
+            style={{
+              fontFamily: 'var(--font-bebas-neue)',
+              fontSize: '1.55rem',
+              letterSpacing: '0.07em',
+              color: 'white',
+              lineHeight: 1,
+            }}
+          >
+            {country.name}
+          </h3>
+        </div>
 
-      {/* Animated gold rule */}
-      <div
-        style={{
-          width: hovered ? '100%' : '20px',
-          height: '1px',
-          background: GOLD,
-          opacity: 0.45,
-          marginBottom: '0.75rem',
-          transition: 'width 0.55s cubic-bezier(0.16,1,0.3,1)',
-        }}
-      />
+        {/* Middle — animated distance track */}
+        <div className="relative flex flex-1 items-center" style={{ height: '20px' }}>
+          {/* Dim full-width track */}
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              top: '50%',
+              height: '1px',
+              background: 'rgba(255,255,255,0.07)',
+              transform: 'translateY(-50%)',
+            }}
+          />
+          {/* Proportional filled track */}
+          <div style={{ width: `${pct}%`, position: 'relative' }}>
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+              transition={{ duration: 1.4, ease: EASE, delay: index * 0.08 + 0.15 }}
+              style={{
+                height: '1px',
+                background: `linear-gradient(90deg, rgba(201,168,76,0.25) 0%, rgba(201,168,76,0.85) 100%)`,
+                transformOrigin: 'left',
+              }}
+            />
+            {/* Glowing end-node */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0 }}
+              animate={inView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.35, ease: EASE, delay: index * 0.08 + 1.55 }}
+              style={{
+                position: 'absolute',
+                right: 0,
+                top: 0,
+                transform: 'translate(50%, -50%)',
+                width: '6px',
+                height: '6px',
+                borderRadius: '50%',
+                background: '#E8C96A',
+                boxShadow: '0 0 8px 3px rgba(232,201,106,0.5)',
+              }}
+            />
+          </div>
+        </div>
 
-      {/* Tagline */}
-      <p
-        style={{
-          fontSize: '12.5px',
-          lineHeight: 1.65,
-          color: 'rgba(255,255,255,0.5)',
-          fontFamily: 'var(--font-inter)',
-          flex: 1,
-        }}
-      >
-        {country.tagline}
-      </p>
+        {/* Right — km counter + products */}
+        <div className="shrink-0 text-right" style={{ width: '210px' }}>
+          <span
+            aria-live="polite"
+            style={{
+              display: 'block',
+              fontFamily: 'var(--font-bebas-neue)',
+              fontSize: '1.6rem',
+              letterSpacing: '0.06em',
+              color: GOLD,
+              lineHeight: 1,
+            }}
+          >
+            {km.toLocaleString()} <span style={{ fontSize: '0.8em', opacity: 0.6 }}>KM</span>
+          </span>
+          <span
+            style={{
+              display: 'block',
+              fontSize: '10px',
+              letterSpacing: '0.1em',
+              color: 'rgba(255,255,255,0.38)',
+              fontFamily: 'var(--font-inter)',
+              marginTop: '4px',
+            }}
+          >
+            {country.products.join(' · ')}
+          </span>
+        </div>
+      </div>
 
-      {/* Products — revealed on hover */}
-      <div
-        style={{
-          marginTop: '1.25rem',
-          paddingTop: '1.125rem',
-          borderTop: '1px solid rgba(255,255,255,0.07)',
-          opacity: hovered ? 1 : 0,
-          transform: hovered ? 'translateY(0)' : 'translateY(7px)',
-          transition: 'opacity 0.35s ease, transform 0.35s ease',
-          pointerEvents: hovered ? 'auto' : 'none',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '8.5px',
-            letterSpacing: '0.28em',
-            textTransform: 'uppercase',
-            color: GOLD,
-            marginBottom: '5px',
-            fontFamily: 'var(--font-inter)',
-            fontWeight: 600,
-          }}
-        >
-          Supplies
-        </p>
-        <p
-          style={{
-            fontSize: '11.5px',
-            color: 'rgba(255,255,255,0.6)',
-            fontFamily: 'var(--font-inter)',
-          }}
-        >
+      {/* ── Mobile: stacked layout ──────────────────────────────── */}
+      <div className="sm:hidden">
+        {/* Top row: flag + name | km */}
+        <div className="mb-3 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <span
+              className={`fi fi-${country.flagCode}`}
+              role="img"
+              aria-label={`Flag of ${country.name}`}
+              style={{
+                display: 'inline-block',
+                width: '28px',
+                height: '21px',
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                borderRadius: '1px',
+                flexShrink: 0,
+              }}
+            />
+            <h3
+              style={{
+                fontFamily: 'var(--font-bebas-neue)',
+                fontSize: '1.4rem',
+                letterSpacing: '0.07em',
+                color: 'white',
+                lineHeight: 1,
+              }}
+            >
+              {country.name}
+            </h3>
+          </div>
+          <span
+            style={{
+              fontFamily: 'var(--font-bebas-neue)',
+              fontSize: '1.3rem',
+              letterSpacing: '0.05em',
+              color: GOLD,
+              lineHeight: 1,
+            }}
+          >
+            {km.toLocaleString()} <span style={{ fontSize: '0.75em', opacity: 0.55 }}>KM</span>
+          </span>
+        </div>
+
+        {/* Bar */}
+        <div className="relative mb-2.5" style={{ height: '4px', background: 'rgba(255,255,255,0.06)', borderRadius: '2px' }}>
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+            transition={{ duration: 1.3, ease: EASE, delay: index * 0.08 + 0.1 }}
+            style={{
+              position: 'absolute',
+              inset: 0,
+              width: `${pct}%`,
+              background: `linear-gradient(90deg, rgba(201,168,76,0.3) 0%, #C9A84C 100%)`,
+              borderRadius: '2px',
+              transformOrigin: 'left',
+            }}
+          />
+        </div>
+
+        {/* Products */}
+        <p style={{ fontSize: '10px', letterSpacing: '0.08em', color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-inter)' }}>
           {country.products.join(' · ')}
         </p>
       </div>
-    </motion.article>
+    </motion.div>
   )
 }
 
@@ -251,59 +338,51 @@ function ChapterSource() {
         paddingBottom: 'clamp(5rem, 11vh, 8rem)',
       }}
     >
-      {/* Subtle dot-grid texture */}
+      {/* Dot-grid texture */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(circle, rgba(201,168,76,0.055) 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle, rgba(201,168,76,0.05) 1px, transparent 1px)`,
           backgroundSize: '44px 44px',
         }}
       />
 
-      {/* Radial vignette */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background: 'radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.05) 0%, transparent 70%)',
-        }}
-      />
+      <div className="relative mx-auto max-w-5xl px-6 lg:px-10">
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        {/* Chapter header — centered */}
-        <div className="mb-16 text-center">
+        {/* Chapter header */}
+        <div className="mb-14">
           <ChapterLabel number="01" />
           <ChapterHeading text="It begins thousands of kilometers away." />
-          <GoldRule center />
-          <ChapterSubtext
-            text="Seven nations. Some of the world's richest petroleum reserves."
-            center
-          />
+          <GoldRule />
+          <ChapterSubtext text="Seven nations. Some of the world's richest petroleum reserves — ranked by distance to Kabul." />
         </div>
 
-        {/* Card grid — 2 col mobile → 3 col tablet+ */}
-        <div className="grid grid-cols-2 items-stretch gap-4 sm:gap-5 lg:grid-cols-3">
+        {/* Column headers — desktop only */}
+        <div className="mb-3 hidden items-center gap-6 sm:flex">
+          <div style={{ width: '200px', flexShrink: 0 }}>
+            <span style={{ fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', fontFamily: 'var(--font-inter)' }}>
+              Source Nation
+            </span>
+          </div>
+          <div className="flex-1">
+            <span style={{ fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', fontFamily: 'var(--font-inter)' }}>
+              Distance to Kabul
+            </span>
+          </div>
+          <div style={{ width: '210px', flexShrink: 0, textAlign: 'right' }}>
+            <span style={{ fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', fontFamily: 'var(--font-inter)' }}>
+              Products Supplied
+            </span>
+          </div>
+        </div>
+
+        {/* Distance board rows — sorted longest to shortest in data */}
+        <div>
           {SOURCES.map((country, i) => (
-            <div key={country.id} className="flex flex-col">
-              <CountryCard country={country} index={i} />
-            </div>
+            <DistanceBoardRow key={country.id} country={country} index={i} />
           ))}
         </div>
-
-        {/* Decorative bottom rule */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          whileInView={{ scaleX: 1, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.4, ease: EASE, delay: 0.6 }}
-          style={{
-            marginTop: '4rem',
-            height: '1px',
-            background: 'linear-gradient(90deg, transparent 0%, rgba(201,168,76,0.3) 20%, rgba(201,168,76,0.3) 80%, transparent 100%)',
-            transformOrigin: 'center',
-          }}
-        />
       </div>
     </div>
   )
