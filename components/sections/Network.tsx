@@ -136,11 +136,19 @@ export default function Network() {
           </motion.p>
         </div>
 
-        {/* Country card grid */}
+        {/* Country card grid — 7 items: last card centered on sm (col-span-2 half-width) and lg (col-start-2) */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {sourceCountries.map((country, i) => (
-            <CountryCard key={country.id} country={country} index={i} />
-          ))}
+          {sourceCountries.map((country, i) => {
+            const isLast = i === sourceCountries.length - 1
+            return (
+              <div
+                key={country.id}
+                className={isLast ? 'sm:col-span-2 sm:mx-auto sm:w-1/2 lg:col-span-1 lg:col-start-2 lg:mx-0 lg:w-auto' : undefined}
+              >
+                <CountryCard country={country} index={i} />
+              </div>
+            )
+          })}
         </div>
 
         {/* Bottom stat strip */}
