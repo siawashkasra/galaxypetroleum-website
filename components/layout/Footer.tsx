@@ -23,7 +23,7 @@ const NAV_COLS = [
     heading: 'Products',
     links: [
       { label: 'Petrol AI 92', href: '#products' },
-      { label: 'Petrol AI 80', href: '#products' },
+      { label: 'Petrol AI 95', href: '#products' },
       { label: 'Diesel',       href: '#products' },
       { label: 'LPG',          href: '#products' },
       { label: 'Services',     href: '#services' },

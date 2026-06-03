@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     template: '%s | Galaxy Petroleum',
   },
   description:
-    'Galaxy Petroleum imports and distributes world-class petroleum products across Afghanistan. Trusted supplier of AI 80, AI 92, Diesel, and LPG sourced from Russia, Azerbaijan, Iraq, Turkmenistan, and beyond.',
+    'Galaxy Petroleum imports and distributes world-class petroleum products across Afghanistan. Trusted supplier of AI 92, AI 95, Diesel, and LPG sourced from Russia, Azerbaijan, Iraq, Turkmenistan, and beyond.',
   keywords: [
     'petroleum Afghanistan',
     'fuel import Afghanistan',

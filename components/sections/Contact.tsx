@@ -28,7 +28,7 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>
 
-const PRODUCTS = ['Petrol AI 92', 'Petrol AI 80', 'Diesel', 'LPG', 'Multiple products', 'General inquiry']
+const PRODUCTS = ['Petrol AI 92', 'Petrol AI 95', 'Diesel', 'LPG', 'Multiple products', 'General inquiry']
 
 /* ─── Field wrapper ──────────────────────────────────────────── */
 

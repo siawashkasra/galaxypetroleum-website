@@ -51,16 +51,16 @@ export const products: Product[] = [
       'https://images.unsplash.com/photo-1695018854387-9713ef1954c0?auto=format&fit=crop&w=1200&q=80',
   },
   {
-    id: 'ai-80',
-    name: 'Petrol AI 80',
-    grade: 'RON 80',
+    id: 'ai-95',
+    name: 'Petrol AI 95',
+    grade: 'RON 95',
     description:
-      'Reliable and cost-effective fuel for high-load applications including generators, agricultural machinery, and older vehicle fleets.',
+      'High-performance unleaded petrol for modern engines requiring superior combustion efficiency. Ideal for passenger vehicles, light commercial fleets, and high-load applications.',
     specs: [
-      { label: 'Octane Rating', value: 'RON 80' },
+      { label: 'Octane Rating', value: 'RON 95' },
       { label: 'Type', value: 'Unleaded' },
-      { label: 'Application', value: 'Generators, agriculture, older engines' },
-      { label: 'Standard', value: 'Euro 2 equivalent' },
+      { label: 'Application', value: 'Passenger vehicles, light commercial, generators' },
+      { label: 'Standard', value: 'Euro 5 equivalent' },
     ],
     image:
       'https://images.unsplash.com/photo-1644246905181-c3753e9a82bd?auto=format&fit=crop&w=1200&q=80',
@@ -158,7 +158,7 @@ export const sourceCountries: SourceCountry[] = [
     flag: '🇧🇾',
     description:
       "A key refining hub in Eastern Europe. Belarusian refineries produce high-quality petroleum products distributed through Galaxy's network.",
-    products: ['Diesel', 'Petrol AI 80'],
+    products: ['Diesel', 'Petrol AI 95'],
     coordinates: { x: 52, y: 22 },
   },
   {
@@ -185,7 +185,7 @@ export const sourceCountries: SourceCountry[] = [
     flag: '🇹🇲',
     description:
       'Rich in natural gas and petroleum, Turkmenistan is a direct overland neighbour with strategic border access into Afghanistan.',
-    products: ['Petrol AI 80', 'Diesel', 'LPG'],
+    products: ['Petrol AI 95', 'Diesel', 'LPG'],
     coordinates: { x: 64, y: 34 },
   },
   {
