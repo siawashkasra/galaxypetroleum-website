@@ -400,36 +400,28 @@ export const journeyCorridorCrossings: JourneyCrossing[] = [
     name: 'Hairatan',
     region: 'Northern Gateway',
     tagline: 'The northern gateway. Where Uzbekistan meets Afghanistan across the Amu Darya.',
-    // Port facility / cargo handling — Hairatan is Afghanistan's main river port
-    image:
-      'https://images.unsplash.com/photo-1553413077-190dd305871c?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-daSq9zhROxY?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'islam-qala',
     name: 'Islam Qala',
     region: 'Western Entry',
     tagline: 'Ancient Silk Road crossing. Where caravans once passed, tankers now follow.',
-    // Industrial cargo / border freight facility
-    image:
-      'https://images.unsplash.com/photo-1494412519320-aa613dfb7738?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-Annl9CjEaEs?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'tor-ghondi',
     name: 'Tor Ghondi',
     region: 'Northwestern Pass',
     tagline: 'Strategic and remote. A high-altitude corridor carved into the mountain frontier.',
-    // Cargo logistics / transport hub
-    image:
-      'https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-9OrMvNfNL_c?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'rozanaq',
     name: 'Rozanaq',
     region: 'Northern Corridor',
     tagline: 'High-volume transit point. The artery that feeds the northern provinces.',
-    // Truck convoy / freight corridor
-    image:
-      'https://images.unsplash.com/photo-1601584115197-04f20b715548?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-6p0JBES_65E?auto=format&fit=crop&w=1200&q=80',
   },
 ]
 
