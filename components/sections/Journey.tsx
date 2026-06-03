@@ -726,8 +726,8 @@ function ChapterImpact() {
         style={{ transform: 'scale(1.1)' }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?auto=format&fit=crop&w=1800&q=85"
-          alt="Oil pumpjack operating at dusk — the petroleum industry that Galaxy Petroleum connects to Afghanistan"
+          src="https://plus.unsplash.com/premium_photo-1754341257477-b0832d977d88?auto=format&fit=crop&w=1800&q=85"
+          alt="Aerial view of large thermal power plant at night — the energy infrastructure Galaxy Petroleum powers"
           fill
           className="object-cover"
           sizes="100vw"
