@@ -400,28 +400,28 @@ export const journeyCorridorCrossings: JourneyCrossing[] = [
     name: 'Hairatan',
     region: 'Northern Gateway',
     tagline: 'The northern gateway. Where Uzbekistan meets Afghanistan across the Amu Darya.',
-    image: 'https://images.unsplash.com/photo-daSq9zhROxY?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1527314392553-2c7bded21b23?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'islam-qala',
     name: 'Islam Qala',
     region: 'Western Entry',
     tagline: 'Ancient Silk Road crossing. Where caravans once passed, tankers now follow.',
-    image: 'https://images.unsplash.com/photo-Annl9CjEaEs?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1678182451047-196f22a4143e?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'tor-ghondi',
     name: 'Tor Ghondi',
     region: 'Northwestern Pass',
     tagline: 'Strategic and remote. A high-altitude corridor carved into the mountain frontier.',
-    image: 'https://images.unsplash.com/photo-9OrMvNfNL_c?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://plus.unsplash.com/premium_photo-1675313135522-f2fac35d869a?auto=format&fit=crop&w=1200&q=80',
   },
   {
     id: 'rozanaq',
     name: 'Rozanaq',
     region: 'Northern Corridor',
     tagline: 'High-volume transit point. The artery that feeds the northern provinces.',
-    image: 'https://images.unsplash.com/photo-6p0JBES_65E?auto=format&fit=crop&w=1200&q=80',
+    image: 'https://images.unsplash.com/photo-1613690413712-dbe316605644?auto=format&fit=crop&w=1200&q=80',
   },
 ]
 
