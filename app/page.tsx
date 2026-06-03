@@ -2,7 +2,7 @@ import Hero from '@/components/sections/Hero'
 import LivePrices from '@/components/sections/LivePrices'
 import Stats from '@/components/sections/Stats'
 import About from '@/components/sections/About'
-import JourneyMap from '@/components/sections/JourneyMap'
+import Journey from '@/components/sections/Journey'
 import Products from '@/components/sections/Products'
 import Services from '@/components/sections/Services'
 import Projects from '@/components/sections/Projects'
@@ -18,7 +18,7 @@ export default function Home() {
       <LivePrices />
       <Stats />
       <About />
-      <JourneyMap />
+      <Journey />
       <Products />
       <Services />
       <Projects />

@@ -9,6 +9,9 @@ import type {
   TeamMember,
   Testimonial,
   Stat,
+  JourneySourceCountryData,
+  JourneyCrossing,
+  JourneyImpactStat,
 } from './types'
 
 export const company: CompanyInfo = {
@@ -342,4 +345,92 @@ export const testimonials: Testimonial[] = [
     role: 'Fleet Manager',
     company: 'National Logistics Co.',
   },
+]
+
+/* ─── Journey cinematic section ──────────────────────────────── */
+
+export const journeySourceCountries: JourneySourceCountryData[] = [
+  {
+    id: 'russia',
+    name: 'Russia',
+    flagCode: 'ru',
+    tagline: 'Vast reserves. Refined at scale.',
+    products: ['Diesel', 'AI-92', 'LPG'],
+  },
+  {
+    id: 'belarus',
+    name: 'Belarus',
+    flagCode: 'by',
+    tagline: "Eastern Europe's refining powerhouse.",
+    products: ['Diesel', 'Bitumen'],
+  },
+  {
+    id: 'azerbaijan',
+    name: 'Azerbaijan',
+    flagCode: 'az',
+    tagline: 'Ancient oil fields on the Caspian shore.',
+    products: ['Diesel', 'Jet Fuel'],
+  },
+  {
+    id: 'iraq',
+    name: 'Iraq',
+    flagCode: 'iq',
+    tagline: "The cradle of petroleum. Basra's black gold.",
+    products: ['Diesel', 'Fuel Oil'],
+  },
+  {
+    id: 'turkmenistan',
+    name: 'Turkmenistan',
+    flagCode: 'tm',
+    tagline: 'Landlocked but limitless.',
+    products: ['Diesel', 'LPG', 'Petrochemicals'],
+  },
+  {
+    id: 'uzbekistan',
+    name: 'Uzbekistan',
+    flagCode: 'uz',
+    tagline: 'The gateway to the corridor north.',
+    products: ['Diesel', 'AI-92'],
+  },
+]
+
+export const journeyCorridorCrossings: JourneyCrossing[] = [
+  {
+    id: 'hairatan',
+    name: 'Hairatan',
+    region: 'Northern Gateway',
+    tagline: 'The northern gateway. Where Uzbekistan meets Afghanistan across the Amu Darya.',
+    image:
+      'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'islam-qala',
+    name: 'Islam Qala',
+    region: 'Western Entry',
+    tagline: 'Ancient Silk Road crossing. Where caravans once passed, tankers now follow.',
+    image:
+      'https://images.unsplash.com/photo-1501854140801-50d01698950b?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'tor-ghondi',
+    name: 'Tor Ghondi',
+    region: 'Northwestern Pass',
+    tagline: 'Strategic and remote. A high-altitude corridor carved into the mountain frontier.',
+    image:
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=1200&q=80',
+  },
+  {
+    id: 'rozanaq',
+    name: 'Rozanaq',
+    region: 'Northern Corridor',
+    tagline: 'High-volume transit point. The artery that feeds the northern provinces.',
+    image:
+      'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80',
+  },
+]
+
+export const journeyImpactStats: JourneyImpactStat[] = [
+  { value: 34,   suffix: '',  label: 'provinces reached'                    },
+  { value: 3000, suffix: '+', label: 'deliveries completed'                 },
+  { value: 100,  suffix: '+', label: 'team members coordinating every shipment' },
 ]

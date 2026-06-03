@@ -78,3 +78,32 @@ export interface CompanyInfo {
   address: string
   about: string
 }
+
+/* ─── Journey / Cinematic section types ──────────────────────── */
+
+export interface JourneySourceCountryData {
+  id: string
+  name: string
+  /** ISO 3166-1 alpha-2 lower-case, used by flag-icons CSS (fi fi-{code}) */
+  flagCode: string
+  /** Single evocative line — storytelling, not product specs */
+  tagline: string
+  products: string[]
+}
+
+export interface JourneyCrossing {
+  id: string
+  name: string
+  /** Short region label shown on the image */
+  region: string
+  /** One cinematic sentence describing the crossing */
+  tagline: string
+  /** Unsplash landscape image URL */
+  image: string
+}
+
+export interface JourneyImpactStat {
+  value: number
+  suffix: string
+  label: string
+}
