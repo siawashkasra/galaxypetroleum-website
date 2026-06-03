@@ -110,15 +110,6 @@ function GoldRule({ delay = 0.14, center = false }: { delay?: number; center?: b
    CHAPTER 1 — THE SOURCE
 ═══════════════════════════════════════════════════════════════ */
 
-const ARC_Y_OFFSETS = [
-  '-1.75rem',  // Russia        — left peak
-  '-0.875rem', // Belarus       — left shoulder
-  '0.25rem',   // Azerbaijan    — center dip
-  '0.25rem',   // Iraq          — center dip
-  '-0.875rem', // Turkmenistan  — right shoulder
-  '-1.75rem',  // Uzbekistan    — right peak
-]
-
 function CountryCard({
   country,
   index,
@@ -141,6 +132,7 @@ function CountryCard({
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
+        height: '100%',       // fills grid cell → all cards same height
         padding: '1.75rem 1.5rem',
         background: hovered ? 'rgba(201,168,76,0.04)' : 'rgba(255,255,255,0.025)',
         border: `1px solid ${hovered ? 'rgba(201,168,76,0.5)' : 'rgba(255,255,255,0.07)'}`,
@@ -151,7 +143,6 @@ function CountryCard({
         boxShadow: hovered
           ? '0 24px 64px rgba(201,168,76,0.1), 0 0 0 1px rgba(201,168,76,0.18)'
           : 'none',
-        // arc offset — desktop only (applied via wrapper)
       }}
     >
       {/* Flag — real CSS flag via flag-icons library */}
@@ -291,18 +282,10 @@ function ChapterSource() {
           />
         </div>
 
-        {/* Card grid — 2 col → 3 col on tablet+
-            On xl screens the wrapper applies arc Y offsets to each card column */}
-        <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-3 xl:grid-cols-6">
+        {/* Card grid — 2 col mobile → 3 col tablet+ */}
+        <div className="grid grid-cols-2 items-stretch gap-4 sm:gap-5 lg:grid-cols-3">
           {SOURCES.map((country, i) => (
-            <div
-              key={country.id}
-              style={{
-                // Arc offset — only meaningful at xl (6-col) width
-                marginTop: `max(0px, calc(${ARC_Y_OFFSETS[i]} + 0px))`,
-              }}
-              className="xl:mt-[var(--arc-offset)]"
-            >
+            <div key={country.id} className="flex flex-col">
               <CountryCard country={country} index={i} />
             </div>
           ))}
@@ -743,8 +726,8 @@ function ChapterImpact() {
         style={{ transform: 'scale(1.1)' }}
       >
         <Image
-          src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=85"
-          alt="Dramatic mountain landscape at night — evoking the frontier regions Galaxy Petroleum crosses"
+          src="https://images.unsplash.com/photo-1586902279476-3244d8d18285?auto=format&fit=crop&w=1800&q=85"
+          alt="Oil pumpjack operating at dusk — the petroleum industry that Galaxy Petroleum connects to Afghanistan"
           fill
           className="object-cover"
           sizes="100vw"
