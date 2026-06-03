@@ -74,7 +74,7 @@ export default function Footer() {
             <div aria-hidden="true" className="h-px w-10 bg-gold opacity-50" />
 
             <p className="text-[10px] uppercase tracking-[0.2em] text-white/25">
-              Sourcing from 6 nations &nbsp;·&nbsp; 4 border crossings
+              Sourcing from 7 nations &nbsp;·&nbsp; 4 border crossings
               &nbsp;·&nbsp; 34 provinces served
             </p>
           </div>
