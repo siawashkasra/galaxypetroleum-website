@@ -726,8 +726,8 @@ function ChapterImpact() {
         style={{ transform: 'scale(1.1)' }}
       >
         <Image
-          src="https://plus.unsplash.com/premium_photo-1754341257477-b0832d977d88?auto=format&fit=crop&w=1800&q=85"
-          alt="Aerial view of large thermal power plant at night — the energy infrastructure Galaxy Petroleum powers"
+          src="https://images.unsplash.com/photo-1602853175733-5ad62dc6a2c8?auto=format&fit=crop&w=1800&q=85"
+          alt="Digital display showing fuel data — the intelligence behind Galaxy Petroleum's supply network"
           fill
           className="object-cover"
           sizes="100vw"
