@@ -117,10 +117,10 @@ export default function Hero() {
             variants={itemVariants}
           >
             <Link
-              href="#products"
+              href="#commodities"
               className="inline-flex items-center bg-gold px-7 py-3.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-white transition-colors duration-300 hover:bg-gold-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold focus-visible:ring-offset-2 focus-visible:ring-offset-ink"
             >
-              Our Products
+              Our Commodities
             </Link>
             <Link
               href="#journey"

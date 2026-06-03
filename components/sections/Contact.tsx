@@ -22,13 +22,13 @@ const schema = z.object({
   company: z.string().optional(),
   email:   z.string().email('A valid email address is required'),
   phone:   z.string().optional(),
-  product: z.string().min(1, 'Please select a product of interest'),
+  product: z.string().min(1, 'Please select a commodity of interest'),
   message: z.string().min(20, 'Message must be at least 20 characters'),
 })
 
 type FormValues = z.infer<typeof schema>
 
-const PRODUCTS = ['Petrol AI 92', 'Petrol AI 95', 'Diesel', 'LPG', 'Multiple products', 'General inquiry']
+const PRODUCTS = ['Petrol AI 92', 'Petrol AI 95', 'Diesel', 'LPG', 'Multiple commodities', 'General inquiry']
 
 /* ─── Field wrapper ──────────────────────────────────────────── */
 
@@ -149,10 +149,10 @@ function ContactForm() {
         </Field>
       </div>
 
-      {/* Product interest */}
-      <Field label="Product of Interest *" error={errors.product?.message}>
+      {/* Commodity interest */}
+      <Field label="Commodity of Interest *" error={errors.product?.message}>
         <select {...register('product')} className={`${inputClass} cursor-pointer`}>
-          <option value="">Select a product…</option>
+          <option value="">Select a commodity…</option>
           {PRODUCTS.map(p => (
             <option key={p} value={p}>{p}</option>
           ))}

@@ -105,11 +105,11 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Products() {
+export default function Commodities() {
   return (
     <section
-      id="products"
-      aria-label="Our petroleum products"
+      id="commodities"
+      aria-label="Our petroleum commodities"
       className="bg-background"
     >
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">
@@ -123,7 +123,7 @@ export default function Products() {
             transition={{ duration: 0.7, ease: EASE }}
           >
             <p className="mb-4 text-[10px] font-semibold uppercase tracking-[0.35em] text-gold">
-              Our Products
+              Our Commodities
             </p>
             <h2
               className="text-ink"
@@ -136,7 +136,7 @@ export default function Products() {
             >
               World-Class
               <br />
-              <span style={{ color: 'var(--color-gold)' }}>Petroleum Products</span>
+              <span style={{ color: 'var(--color-gold)' }}>Petroleum Commodities</span>
             </h2>
           </motion.div>
 
@@ -147,7 +147,7 @@ export default function Products() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
           >
-            Every product we supply is tested and certified against international
+            Every commodity we supply is tested and certified against international
             standards. Hover each card to explore full specifications.
           </motion.p>
         </div>
@@ -168,7 +168,7 @@ export default function Products() {
           transition={{ duration: 0.6, delay: 0.4, ease: EASE }}
         >
           <p className="text-[12px] text-muted">
-            All products sourced from certified refineries across 6 nations.
+            All commodities sourced from certified refineries across 7 nations.
           </p>
           <Link
             href="#contact"

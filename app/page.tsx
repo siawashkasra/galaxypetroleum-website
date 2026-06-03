@@ -3,7 +3,7 @@ import LivePrices from '@/components/sections/LivePrices'
 import Stats from '@/components/sections/Stats'
 import About from '@/components/sections/About'
 import Journey from '@/components/sections/Journey'
-import Products from '@/components/sections/Products'
+import Commodities from '@/components/sections/Commodities'
 import Services from '@/components/sections/Services'
 import Projects from '@/components/sections/Projects'
 import Network from '@/components/sections/Network'
@@ -19,7 +19,7 @@ export default function Home() {
       <Stats />
       <About />
       <Journey />
-      <Products />
+      <Commodities />
       <Services />
       <Projects />
       <Network />

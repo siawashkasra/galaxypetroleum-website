@@ -10,7 +10,7 @@ import { company } from '@/lib/data'
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Products', href: '#products' },
+  { label: 'Commodities', href: '#commodities' },
   { label: 'The Journey', href: '#journey' },
   { label: 'Projects', href: '#projects' },
   { label: 'Network', href: '#network' },

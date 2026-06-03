@@ -372,7 +372,7 @@ function ChapterSource() {
           </div>
           <div style={{ width: '210px', flexShrink: 0, textAlign: 'right' }}>
             <span style={{ fontSize: '9px', letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.22)', fontFamily: 'var(--font-inter)' }}>
-              Products Supplied
+              Commodities Supplied
             </span>
           </div>
         </div>

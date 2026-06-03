@@ -81,7 +81,7 @@ function FeaturedCountryCard({ country }: { country: SourceCountry }) {
         {/* Right — products */}
         <div className="shrink-0 lg:text-right">
           <p className="mb-2.5 text-[9px] font-semibold uppercase tracking-[0.25em] text-muted">
-            Products Supplied
+            Commodities Supplied
           </p>
           <div className="flex flex-wrap gap-1.5 lg:justify-end">
             {country.products.map(product => (
@@ -162,7 +162,7 @@ function CountryCard({
       {/* Products supplied */}
       <div className="space-y-2">
         <p className="text-[9px] font-semibold uppercase tracking-[0.25em] text-muted">
-          Products Supplied
+          Commodities Supplied
         </p>
         <div className="flex flex-wrap gap-1.5">
           {country.products.map(product => (

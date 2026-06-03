@@ -20,12 +20,12 @@ const NAV_COLS = [
     ],
   },
   {
-    heading: 'Products',
+    heading: 'Commodities',
     links: [
-      { label: 'Petrol AI 92', href: '#products' },
-      { label: 'Petrol AI 95', href: '#products' },
-      { label: 'Diesel',       href: '#products' },
-      { label: 'LPG',          href: '#products' },
+      { label: 'Petrol AI 92', href: '#commodities' },
+      { label: 'Petrol AI 95', href: '#commodities' },
+      { label: 'Diesel',       href: '#commodities' },
+      { label: 'LPG',          href: '#commodities' },
       { label: 'Services',     href: '#services' },
       { label: 'Market Prices',href: '#prices'   },
     ],
