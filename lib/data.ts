@@ -24,14 +24,14 @@ export const company: CompanyInfo = {
   email: 'info@galaxypetroleum.com',
   address: 'Kabul, Afghanistan',
   about:
-    "Galaxy Petroleum is Afghanistan's premier petroleum import and distribution company. Founded in 2023, we have rapidly established ourselves as a trusted partner for businesses and communities across the country — delivering high-quality fuel products through a robust supply chain that spans six nations and four strategic border crossings.",
+    "Galaxy Petroleum is Afghanistan's premier petroleum import and distribution company. Founded in 2023, we have rapidly established ourselves as a trusted partner for businesses and communities across the country — delivering high-quality fuel products through a robust supply chain that spans seven nations and four strategic border crossings.",
 }
 
 export const stats: Stat[] = [
   { value: 100, suffix: '+', label: 'Employees' },
   { value: 3000, suffix: '+', label: 'Projects Completed' },
   { value: 60, suffix: '+', label: 'Global Partners' },
-  { value: 6, suffix: '', label: 'Source Countries' },
+  { value: 7, suffix: '', label: 'Source Countries' },
 ]
 
 export const products: Product[] = [
@@ -130,7 +130,7 @@ export const services: Service[] = [
     id: 'supply-chain',
     title: 'Supply Chain Management',
     description:
-      'Strategic sourcing across six countries ensures supply continuity. We mitigate risk through diversified procurement channels and bonded storage facilities.',
+      'Strategic sourcing across seven countries ensures supply continuity. We mitigate risk through diversified procurement channels and bonded storage facilities.',
     icon: 'Network',
   },
   {
@@ -196,6 +196,15 @@ export const sourceCountries: SourceCountry[] = [
       "A growing refining capacity and central location make Uzbekistan a vital link in Galaxy's Central Asian supply chain.",
     products: ['Petrol AI 92', 'Diesel'],
     coordinates: { x: 67, y: 30 },
+  },
+  {
+    id: 'kazakhstan',
+    name: 'Kazakhstan',
+    flag: '🇰🇿',
+    description:
+      "One of the world's top ten oil producers and Central Asia's largest economy. Kazakhstan's Tengiz and Kashagan fields supply premium-grade petroleum products.",
+    products: ['Diesel', 'LPG', 'Crude Derivatives'],
+    coordinates: { x: 70, y: 22 },
   },
 ]
 
@@ -391,6 +400,13 @@ export const journeySourceCountries: JourneySourceCountryData[] = [
     flagCode: 'uz',
     tagline: 'The gateway to the corridor north.',
     products: ['Diesel', 'AI-92'],
+  },
+  {
+    id: 'kazakhstan',
+    name: 'Kazakhstan',
+    flagCode: 'kz',
+    tagline: "Vast steppe, vast reserves. Central Asia's rising petroleum force.",
+    products: ['Diesel', 'LPG', 'Crude Derivatives'],
   },
 ]
 

@@ -277,7 +277,7 @@ function ChapterSource() {
           <ChapterHeading text="It begins thousands of kilometers away." />
           <GoldRule center />
           <ChapterSubtext
-            text="Six nations. Some of the world's richest petroleum reserves."
+            text="Seven nations. Some of the world's richest petroleum reserves."
             center
           />
         </div>

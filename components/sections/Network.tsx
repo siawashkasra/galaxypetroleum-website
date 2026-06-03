@@ -117,7 +117,7 @@ export default function Network() {
                 lineHeight: 0.95,
               }}
             >
-              Six Nations.
+              Seven Nations.
               <br />
               <span style={{ color: 'var(--color-gold)' }}>One Pipeline.</span>
             </h2>
@@ -130,7 +130,7 @@ export default function Network() {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.2, ease: EASE }}
           >
-            A deliberately diversified sourcing strategy across six nations
+            A deliberately diversified sourcing strategy across seven nations
             protects against regional disruption and ensures Afghanistan always
             has reliable access to the energy it needs.
           </motion.p>

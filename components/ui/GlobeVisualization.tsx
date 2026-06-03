@@ -36,7 +36,7 @@ interface Tooltip {
 /* ─── Country sets for polygon highlighting ─────────────────── */
 
 const SOURCE_NATIONS = new Set([
-  'Russia', 'Belarus', 'Azerbaijan', 'Iraq', 'Turkmenistan', 'Uzbekistan',
+  'Russia', 'Belarus', 'Azerbaijan', 'Iraq', 'Turkmenistan', 'Uzbekistan', 'Kazakhstan',
 ])
 const DEST_NATIONS = new Set(['Afghanistan'])
 
@@ -48,6 +48,7 @@ const AZ  = { lat: 40.4093, lng: 49.8671 }
 const IQ  = { lat: 30.5085, lng: 47.7834 }   // Basra oil hub
 const TM  = { lat: 37.9601, lng: 58.3261 }
 const UZ  = { lat: 41.2995, lng: 69.2401 }
+const KZ  = { lat: 51.1801, lng: 71.4460 }   // Nur-Sultan (Astana)
 const KBL = { lat: 34.5553, lng: 69.2075 }   // Kabul destination
 
 const HAIRATAN   = { lat: 37.2000, lng: 67.4500 }
@@ -64,6 +65,7 @@ const HTML_MARKERS: HtmlMarker[] = [
   { ...IQ,  label: 'Iraq',         flag: '🇮🇶', type: 'source',      products: 'Diesel · Fuel Oil'              },
   { ...TM,  label: 'Turkmenistan', flag: '🇹🇲', type: 'source',      products: 'Diesel · LPG · Petrochemicals'  },
   { ...UZ,  label: 'Uzbekistan',   flag: '🇺🇿', type: 'source',      products: 'Diesel · AI-92'                 },
+  { ...KZ,  label: 'Kazakhstan',   flag: '🇰🇿', type: 'source',      products: 'Diesel · LPG · Crude Derivatives' },
   { ...HAIRATAN,   label: 'Hairatan',   flag: '◆', type: 'crossing', products: 'Border Crossing — Hairatan'    },
   { ...ISLAM_QALA, label: 'Islam Qala', flag: '◆', type: 'crossing', products: 'Border Crossing — Islam Qala'  },
   { ...TOR_GHONDI, label: 'Tor Ghondi', flag: '◆', type: 'crossing', products: 'Border Crossing — Tor Ghondi'  },
@@ -83,6 +85,8 @@ const ARCS: Arc[] = [
   { startLat: TM.lat,  startLng: TM.lng,  endLat: HAIRATAN.lat,   endLng: HAIRATAN.lng,   animateTime: 2350 },
   { startLat: UZ.lat,  startLng: UZ.lng,  endLat: HAIRATAN.lat,   endLng: HAIRATAN.lng,   animateTime: 2500 },
   { startLat: UZ.lat,  startLng: UZ.lng,  endLat: ROZANAQ.lat,    endLng: ROZANAQ.lng,    animateTime: 2650 },
+  { startLat: KZ.lat,  startLng: KZ.lng,  endLat: HAIRATAN.lat,   endLng: HAIRATAN.lng,   animateTime: 2800 },
+  { startLat: KZ.lat,  startLng: KZ.lng,  endLat: ROZANAQ.lat,    endLng: ROZANAQ.lng,    animateTime: 2950 },
   { startLat: HAIRATAN.lat,   startLng: HAIRATAN.lng,   endLat: KBL.lat, endLng: KBL.lng, animateTime: 1400 },
   { startLat: ROZANAQ.lat,    startLng: ROZANAQ.lng,    endLat: KBL.lat, endLng: KBL.lng, animateTime: 1500 },
   { startLat: ISLAM_QALA.lat, startLng: ISLAM_QALA.lng, endLat: KBL.lat, endLng: KBL.lng, animateTime: 1450 },
@@ -424,7 +428,7 @@ export default function GlobeVisualization() {
       className="relative w-full"
       style={{ aspectRatio: '1 / 1' }}
       role="img"
-      aria-label="Rotating globe — petroleum supply routes from 6 source nations to Afghanistan"
+      aria-label="Rotating globe — petroleum supply routes from 7 source nations to Afghanistan"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >

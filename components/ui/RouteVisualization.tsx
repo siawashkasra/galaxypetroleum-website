@@ -182,7 +182,7 @@ export default function RouteVisualization() {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       role="img"
-      aria-label="Animated supply route map: petroleum flows from six source nations through four Afghan border crossings to destination"
+      aria-label="Animated supply route map: petroleum flows from seven source nations through four Afghan border crossings to destination"
     >
       <defs>
         {/* Invisible path copies for animateMotion reference */}

@@ -106,7 +106,7 @@ export default function Hero() {
             className="max-w-sm text-[14px] leading-7 text-white/60"
             variants={itemVariants}
           >
-            Six source nations. Four border crossings. One reliable partner.
+            Seven source nations. Four border crossings. One reliable partner.
             Galaxy Petroleum delivers world-class fuel across Afghanistan —
             tracing a supply chain no competitor has built.
           </motion.p>
@@ -140,7 +140,7 @@ export default function Hero() {
             {[
               'Est. 2023',
               'Kabul, Afghanistan',
-              '6 Source Nations',
+              '7 Source Nations',
               '100+ Team Members',
             ].map(fact => (
               <li key={fact} className="text-[10px] uppercase tracking-[0.2em] text-white/30">
