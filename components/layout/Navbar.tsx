@@ -5,7 +5,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
-import { company } from '@/lib/data'
 
 const NAV_LINKS = [
   { label: 'About', href: '#about' },
@@ -19,7 +18,7 @@ const NAV_LINKS = [
 
 const SCROLL_THRESHOLD = 80
 
-export default function Navbar() {
+export default function Navbar({ email }: { email: string }) {
   const [isScrolled, setIsScrolled]   = useState(false)
   const [isVisible, setIsVisible]     = useState(true)
   const [isMenuOpen, setIsMenuOpen]   = useState(false)
@@ -230,7 +229,7 @@ export default function Navbar() {
               >
                 Get a Quote
               </Link>
-              <p className="text-center text-xs text-muted">{company.email}</p>
+              <p className="text-center text-xs text-muted">{email}</p>
             </div>
           </motion.div>
         )}

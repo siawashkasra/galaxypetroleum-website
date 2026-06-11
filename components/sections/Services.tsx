@@ -6,7 +6,6 @@ import {
   ArrowRight,
 } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
-import { services } from '@/lib/data'
 import type { Service } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -74,7 +73,7 @@ function ServiceCard({
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Services() {
+export default function Services({ services }: { services: Service[] }) {
   return (
     <section
       id="services"

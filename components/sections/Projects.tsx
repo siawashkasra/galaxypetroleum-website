@@ -3,7 +3,6 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-import { projects } from '@/lib/data'
 import type { Project } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -84,7 +83,7 @@ function ProjectCard({
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Projects() {
+export default function Projects({ projects }: { projects: Project[] }) {
   const [p1, p2, p3, p4] = projects
 
   return (
@@ -146,31 +145,36 @@ export default function Projects() {
           ))}
         </div>
 
-        {/* Desktop: asymmetric bento */}
+        {/* Desktop: asymmetric bento — gracefully handles fewer than 4 projects */}
         <div className="hidden gap-4 lg:grid lg:grid-cols-3 lg:grid-rows-2">
-          {/* Row 1: large left (2 cols), narrow right */}
-          <ProjectCard
-            project={p1}
-            className="col-span-2 row-span-1 h-80"
-            imagePosition="center"
-          />
-          <ProjectCard
-            project={p2}
-            className="col-span-1 row-span-2 h-full min-h-[660px]"
-            imagePosition="center"
-          />
-
-          {/* Row 2: narrow left, large right (2 cols) */}
-          <ProjectCard
-            project={p3}
-            className="col-span-1 row-span-1 h-80"
-            imagePosition="center"
-          />
-          <ProjectCard
-            project={p4}
-            className="col-span-1 row-span-1 h-80"
-            imagePosition="center"
-          />
+          {p1 && (
+            <ProjectCard
+              project={p1}
+              className="col-span-2 row-span-1 h-80"
+              imagePosition="center"
+            />
+          )}
+          {p2 && (
+            <ProjectCard
+              project={p2}
+              className="col-span-1 row-span-2 h-full min-h-[660px]"
+              imagePosition="center"
+            />
+          )}
+          {p3 && (
+            <ProjectCard
+              project={p3}
+              className="col-span-1 row-span-1 h-80"
+              imagePosition="center"
+            />
+          )}
+          {p4 && (
+            <ProjectCard
+              project={p4}
+              className="col-span-1 row-span-1 h-80"
+              imagePosition="center"
+            />
+          )}
         </div>
 
         {/* Footer note */}

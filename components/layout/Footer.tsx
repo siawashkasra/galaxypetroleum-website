@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { company } from '@/lib/data'
+import { getCompany } from '@/lib/db'
 
-const WA_NUMBER  = company.whatsapp.replace(/\D/g, '')
 const WA_MESSAGE = encodeURIComponent(
   "Hello, I'd like to inquire about Galaxy Petroleum's fuel products and services.",
 )
@@ -15,7 +14,7 @@ const NAV_COLS = [
       { label: 'The Journey',  href: '#journey'      },
       { label: 'Projects',     href: '#projects'     },
       { label: 'Our Network',  href: '#network'      },
-      { label: 'Team',         href: '#team'         },
+      { label: 'CEO Message',  href: '#ceo-message'  },
       { label: 'Testimonials', href: '#testimonials' },
     ],
   },
@@ -32,15 +31,17 @@ const NAV_COLS = [
   },
 ]
 
-const CONTACT_ITEMS = [
-  { label: 'Email',    value: company.email,          href: `mailto:${company.email}`                              },
-  { label: 'Phone',    value: company.phone,          href: `tel:${company.phone.replace(/\s/g, '')}`             },
-  { label: 'Address',  value: company.headquarters,   href: '#contact'                                             },
-  { label: 'WhatsApp', value: 'Chat with us',         href: `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`       },
-]
-
 export default function Footer() {
-  const year = new Date().getFullYear()
+  const company    = getCompany()
+  const waNumber   = company.whatsapp.replace(/\D/g, '')
+  const year       = new Date().getFullYear()
+
+  const CONTACT_ITEMS = [
+    { label: 'Email',    value: company.email,          href: `mailto:${company.email}`                           },
+    { label: 'Phone',    value: company.phone,          href: `tel:${company.phone.replace(/\s/g, '')}`           },
+    { label: 'Address',  value: company.headquarters,   href: '#contact'                                          },
+    { label: 'WhatsApp', value: 'Chat with us',         href: `https://wa.me/${waNumber}?text=${WA_MESSAGE}`      },
+  ]
 
   return (
     <footer

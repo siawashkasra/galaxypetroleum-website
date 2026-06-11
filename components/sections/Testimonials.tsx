@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
-import { testimonials } from '@/lib/data'
+import type { Testimonial } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 const AUTO_ADVANCE_MS = 5500
@@ -29,7 +29,7 @@ const variants = {
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Testimonials() {
+export default function Testimonials({ testimonials }: { testimonials: Testimonial[] }) {
   const [current, setCurrent]     = useState(0)
   const [direction, setDirection] = useState(1)
   const [paused, setPaused]       = useState(false)
@@ -57,6 +57,8 @@ export default function Testimonials() {
   }, [paused, prefersReducedMotion, next])
 
   const active = testimonials[current]
+
+  if (!active) return null
 
   return (
     <section

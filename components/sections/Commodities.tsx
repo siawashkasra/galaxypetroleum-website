@@ -4,7 +4,6 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import { products } from '@/lib/data'
 import type { Product } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -105,7 +104,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Commodities() {
+export default function Commodities({ products }: { products: Product[] }) {
   return (
     <section
       id="commodities"

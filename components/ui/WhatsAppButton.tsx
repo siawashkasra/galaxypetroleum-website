@@ -1,13 +1,10 @@
 'use client'
 
 import { motion, useReducedMotion } from 'framer-motion'
-import { company } from '@/lib/data'
 
-const WA_NUMBER = company.whatsapp.replace(/\D/g, '')
 const WA_MESSAGE = encodeURIComponent(
   "Hello, I'd like to inquire about Galaxy Petroleum's fuel products and services.",
 )
-const WA_HREF = `https://wa.me/${WA_NUMBER}?text=${WA_MESSAGE}`
 
 /* WhatsApp SVG icon */
 function WhatsAppIcon({ size = 22 }: { size?: number }) {
@@ -24,12 +21,14 @@ function WhatsAppIcon({ size = 22 }: { size?: number }) {
   )
 }
 
-export default function WhatsAppButton() {
+export default function WhatsAppButton({ whatsapp }: { whatsapp: string }) {
   const prefersReducedMotion = useReducedMotion()
+  const waNumber = whatsapp.replace(/\D/g, '')
+  const href = `https://wa.me/${waNumber}?text=${WA_MESSAGE}`
 
   return (
     <motion.a
-      href={WA_HREF}
+      href={href}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat with Galaxy Petroleum on WhatsApp"

@@ -6,11 +6,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin, CheckCircle, Send } from 'lucide-react'
-import { company } from '@/lib/data'
+import type { CompanyInfo } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
-const WA_NUMBER  = company.whatsapp.replace(/\D/g, '')
 const WA_MESSAGE = encodeURIComponent(
   "Hello, I'd like to inquire about Galaxy Petroleum's fuel products and services.",
 )
@@ -197,13 +196,13 @@ function ContactForm() {
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-const CONTACT_ITEMS = [
-  { icon: Mail,    label: 'Email',    value: company.email        },
-  { icon: Phone,   label: 'Phone',    value: company.phone        },
-  { icon: MapPin,  label: 'Address',  value: company.headquarters },
-]
-
-export default function Contact() {
+export default function Contact({ company }: { company: CompanyInfo }) {
+  const WA_NUMBER     = company.whatsapp.replace(/\D/g, '')
+  const CONTACT_ITEMS = [
+    { icon: Mail,    label: 'Email',    value: company.email        },
+    { icon: Phone,   label: 'Phone',    value: company.phone        },
+    { icon: MapPin,  label: 'Address',  value: company.headquarters },
+  ]
   return (
     <section id="contact" aria-label="Contact Galaxy Petroleum" className="bg-surface">
       <div className="mx-auto max-w-7xl px-6 py-20 lg:px-10 lg:py-28">

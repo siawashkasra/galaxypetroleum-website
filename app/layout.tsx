@@ -1,8 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { Bebas_Neue, Cormorant_Garamond, Inter } from 'next/font/google'
-import Navbar from '@/components/layout/Navbar'
-import Footer from '@/components/layout/Footer'
-import WhatsAppButton from '@/components/ui/WhatsAppButton'
 import './globals.css'
 
 const bebasNeue = Bebas_Neue({
@@ -89,11 +86,8 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css"
         />
       </head>
-      <body className="min-h-dvh antialiased">
-        <Navbar />
+      <body className="min-h-dvh antialiased" suppressHydrationWarning>
         {children}
-        <Footer />
-        <WhatsAppButton />
       </body>
     </html>
   )

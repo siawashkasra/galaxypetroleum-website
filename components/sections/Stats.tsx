@@ -2,7 +2,6 @@
 
 import { useRef, useEffect } from 'react'
 import { motion, useMotionValue, useTransform, animate, useInView } from 'framer-motion'
-import { stats } from '@/lib/data'
 import type { Stat } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -62,7 +61,7 @@ function Counter({ value, suffix }: Pick<Stat, 'value' | 'suffix'>) {
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Stats() {
+export default function Stats({ stats }: { stats: Stat[] }) {
   return (
     <section
       id="stats"

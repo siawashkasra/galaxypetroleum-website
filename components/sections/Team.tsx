@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { team } from '@/lib/data'
 import type { TeamMember } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -67,7 +66,7 @@ function TeamCard({
 
 /* ─── Section ────────────────────────────────────────────────── */
 
-export default function Team() {
+export default function Team({ team }: { team: TeamMember[] }) {
   return (
     <section
       id="team"

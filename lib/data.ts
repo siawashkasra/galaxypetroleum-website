@@ -12,6 +12,7 @@ import type {
   JourneySourceCountryData,
   JourneyCrossing,
   JourneyImpactStat,
+  CeoMessage,
 } from './types'
 
 export const company: CompanyInfo = {
@@ -454,3 +455,16 @@ export const journeyImpactStats: JourneyImpactStat[] = [
   { value: 3000, suffix: '+', label: 'deliveries completed'                 },
   { value: 100,  suffix: '+', label: 'team members coordinating every shipment' },
 ]
+
+export const ceoMessage: CeoMessage = {
+  name:  'Ahmad Karimi',
+  title: 'Chief Executive Officer & Co-Founder',
+  photo: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1400&q=90',
+  message: `Afghanistan stands at an energy crossroads. For too long, supply uncertainty and quality gaps have held back the progress this nation deserves — the reliable fuel that powers hospitals, keeps factories running, and lights homes through winter.
+
+We built Galaxy Petroleum as a commitment, not merely a business. A commitment to give Afghanistan the energy infrastructure it has always deserved. From the refineries of Russia and Central Asia to the last mile of delivery across all 34 provinces, every decision we make is guided by one principle: keep the promise.
+
+I am proud of what our team has built in a short time. The network, the partnerships, the standard of quality — none of it happened by chance. It happened because the people of this nation deserve nothing less.
+
+We are not finished. We are just beginning.`,
+}

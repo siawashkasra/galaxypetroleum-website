@@ -7,7 +7,6 @@ import { motion, useInView } from 'framer-motion'
 import {
   journeySourceCountries as SOURCES,
   journeyCorridorCrossings as CROSSINGS,
-  journeyImpactStats as STATS,
 } from '@/lib/data'
 import type {
   JourneySourceCountryData,
@@ -674,7 +673,7 @@ function CountUpStat({
   )
 }
 
-function ChapterArrival() {
+function ChapterArrival({ stats: STATS }: { stats: JourneyImpactStat[] }) {
   return (
     <div
       className="relative overflow-hidden"
@@ -901,7 +900,7 @@ function ChapterImpact() {
    SECTION ROOT
 ═══════════════════════════════════════════════════════════════ */
 
-export default function Journey() {
+export default function Journey({ journeyImpactStats: STATS }: { journeyImpactStats: JourneyImpactStat[] }) {
   return (
     <section
       id="journey"
@@ -909,7 +908,7 @@ export default function Journey() {
     >
       <ChapterSource />
       <ChapterCorridor />
-      <ChapterArrival />
+      <ChapterArrival stats={STATS} />
       <ChapterImpact />
     </section>
   )

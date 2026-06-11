@@ -111,3 +111,10 @@ export interface JourneyImpactStat {
   suffix: string
   label: string
 }
+
+export interface CeoMessage {
+  name:    string
+  title:   string
+  photo:   string
+  message: string
+}

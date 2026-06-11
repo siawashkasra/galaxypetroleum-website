@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight } from 'lucide-react'
-import { company } from '@/lib/data'
+import type { CompanyInfo } from '@/lib/types'
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
 
@@ -19,7 +19,7 @@ const HIGHLIGHTS = [
   { value: '4 Crossings', label: 'Border Points'  },
 ]
 
-export default function About() {
+export default function About({ company }: { company: CompanyInfo }) {
   return (
     <section
       id="about"
